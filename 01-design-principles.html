@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Design Principles</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Lucy D’Agostino McGowan" />
+    <meta name="date" content="2023-01-30" />
+    <script src="libs/header-attrs-2.20/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+
+
+
+class: center middle main-title section-title-1
+
+# Design Principles
+
+.class-info[
+
+**Session 1**
+
+.light[BEM 392: Math Business Capstone&lt;br&gt;
+Lucy D'Agostino McGowan
+]
+
+]
+
+---
+
+class: title-inv-1
+
+
+# 👋 Lucy D'Agostino McGowan
+
+[mcgowald@wfu.edu](mailto:mcgowald@wfu.edu) &lt;br&gt;
+
+[lucymcgowan.com](https://lucymcgowan.com)
+
+Manchester 342
+
+---
+
+class: title title-1
+
+# Follow Along
+&lt;br&gt;&lt;br&gt;
+.center[
+# [bit.ly/bem-392-s23-slides-1](https://bit.ly/bem-392-s23-slides-1)
+]
+---
+
+class: title-inv-1 middle
+
+# What are the goals of your analysis?
+
+--
+
+.box-1.medium[problem statement]
+---
+
+class: title title-1
+
+# Design thinking
+
+.box-inv-1.medium[User-focused (Who is your audience?)]
+
+--
+
+.box-inv-1.medium[Empathize!]
+
+--
+
+.box-inv-1.medium[Collaborative]
+
+--
+
+.box-inv-1.medium[Iterative]
+
+---
+
+
+class: title title-1
+
+# Design Principles of Data Analysis
+
+.pull-left[
+.box-inv-1.medium[Statistical thinking]
+]
+
+--
+
+.pull-right[
+.box-inv-1.medium[Design thinking]
+]
+
+---
+
+class: title title-1
+
+# Design Principles of Data Analysis
+
+.pull-left[
+.box-inv-1.medium[Statistical thinking]
+
+.box-1[What methods should we use?]
+
+.box-1[What computational tools should we use?]
+
+.box-1[What workflow should we use?]
+
+
+]
+
+.pull-right[
+.box-inv-1.medium[Design thinking]
+]
+
+---
+
+class: title title-1
+
+# Design Principles of Data Analysis
+
+.pull-left[
+.box-inv-1.medium[Statistical thinking]
+
+.box-1[What methods should we use?]
+
+.box-1[What computational tools should we use?]
+
+.box-1[What workflow should we use?]
+
+
+]
+
+.pull-right[
+.box-inv-1.medium[Design thinking]
+
+.box-1[What methods should I use?]
+
+.box-1[How should this information be presented?]
+
+.box-1[How reproducible should this analysis be?]
+]
+
+---
+
+class: title title-1
+
+# Design Principles of Data Analysis
+
+.center[
+
+&lt;figure&gt;
+&lt;img src ="img/caitlin-tweet.png" width ="50%"&gt;&lt;/img&gt;
+&lt;/figure&gt;
+
+]
+.footer[
+Caitlin Hudon [An Intake Form for Data Requests](https://www.caitlinhudon.com/posts/2020/09/16/data-intake-form)
+]
+
+---
+
+class: title title-1
+
+# Design Principles of Data Analysis
+
+--
+
+.box-inv-1.medium[Why?]
+
+--
+
+.box-1[provides a formal mechanism to describe a data analysis]
+
+--
+
+.box-1[provides a language for *alignment* between data analysis *producers* and *consumers*]
+---
+
+class: title title-1
+
+# Design Principles of Data Analysis
+
+.box-inv-1[Prioritized qualities that are relevant to the analysis and can be observed or measured]
+
+--
+
+.box-inv-1[A data analyst can use these principles to guide the choice of what to use to build a data analysis]
+
+--
+
+.box-inv-1[A data analysis can be scored based on how well it adheres to each of these principles]
+
+---
+
+class: title title-1, center
+
+# <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
+&lt;br&gt;&lt;br&gt;
+
+.huge[[bit.ly/bem-392-s23-ae3](https://bit.ly/bem-392-s23-ae3)]
+
+---
+
+class: title title-1
+
+# Design Principles of Data Analysis
+
+.box-inv-1[Data Matching]
+
+--
+
+.box-inv-1[Exhaustive]
+
+--
+
+.box-inv-1[Skeptical]
+
+--
+
+.box-inv-1[Second Order]
+
+--
+
+.box-inv-1[Clarity]
+
+--
+
+.box-inv-1[Reproducible]
+
+---
+
+class: title title-1
+
+# Design Principles of Data Analysis
+
+.box-inv-1[Data Matching]
+
+.box-2[Exhaustive]
+
+.box-2[Skeptical]
+
+.box-2[Second Order]
+
+.box-2[Clarity]
+
+.box-2[Reproducible]
+
+---
+
+
+class: title title-1
+
+# Data Matching
+
+.box-inv-1[Data available directly matches the data needed to investigate a question]
+
+--
+
+.box-1[As opposed to trying to answer a questions with *surrogate* variables, for example]
+
+---
+
+class: center
+
+&lt;figure&gt;
+&lt;img src = "img/data-matching.jpeg" width = '70%'&gt; &lt;/img&gt;
+&lt;/figure&gt;
+
+---
+
+
+class: title title-1
+
+# Data Matching Scenario
+
+.box-inv-1[Your client communicates that data matching is important, but their available data does not match the question well]
+
+--
+
+.box-1.medium[Find more / different data]
+
+--
+
+.box-1.medium[Reframe the question]
+---
+
+class: title title-1, center
+
+# <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
+&lt;br&gt;&lt;br&gt;
+
+.huge[[bit.ly/bem-392-s23-ae3](https://bit.ly/bem-392-s23-ae3)]
+
+---
+
+class: title title-1
+
+# Design Principles of Data Analysis
+
+.box-2[Data Matching]
+
+.box-inv-1[Exhaustive]
+
+.box-2[Skeptical]
+
+.box-2[Second Order]
+
+.box-2[Clarity]
+
+.box-2[Reproducible]
+
+---
+
+class: title title-1
+
+# Exhaustive
+
+&lt;br&gt;
+
+.box-inv-1[use multiple, complementary tools or methods to address the same question, knowing that each given tool reveals some aspects of the data but obscures other aspects]
+
+---
+
+class: center
+
+&lt;figure&gt;
+&lt;img src = "img/exhaustive.jpeg" width = '70%'&gt; &lt;/img&gt;
+&lt;/figure&gt;
+---
+
+class: title title-1, center
+
+# <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
+&lt;br&gt;&lt;br&gt;
+
+.huge[[bit.ly/bem-392-s23-ae3](https://bit.ly/bem-392-s23-ae3)]
+
+---
+
+
+class: title title-1
+
+# Design Principles of Data Analysis
+
+.box-2[Data Matching]
+
+.box-2[Exhaustive]
+
+.box-inv-1[Skeptical]
+
+.box-2[Second Order]
+
+.box-2[Clarity]
+
+.box-2[Reproducible]
+
+---
+
+class: title title-1
+
+# Skeptical
+
+&lt;br&gt;
+
+.box-inv-1[An analysis is *skeptical* if multiple, related questions are considered using the same data ]
+
+---
+
+class: center
+
+&lt;figure&gt;
+&lt;img src = "img/skeptical.jpeg" width = '70%'&gt; &lt;/img&gt;
+&lt;/figure&gt;
+
+---
+
+
+class: title title-1
+
+# Skeptical
+
+.box-inv-1[The need for more or less skepticism in a data analysis is typically governed by outside circumstances and the context in which the analysis sits]
+
+--
+
+.box-inv-1[Analyses that may have large impacts or result in significant monetary costs will typically be subject to detailed scrutiny]
+
+---
+
+class: title title-1
+
+# Skeptical Example
+
+- In July 2000, the Health Effects Institute (HEI) published a reanalysis of the Harvard Six Cities Study
+
+--
+
+- This is a seminal air pollution study that showed significant associations between air pollution and mortality
+
+--
+
+- Due to the potential regulatory impact of the study, HEI commissioned an independent set of investigators to reproduce the findings and conduct a series of sensitivity analyses
+
+--
+
+- The result was a nearly 300 page volume where the data and findings were subject to intense skepticism and every alternative hypothesis was examined
+
+---
+
+class: title title-1
+
+# (Not) Skeptical Example 
+
+- There are other instances when skepticism in the form of alternate explanations is not warranted in the analysis.
+
+--
+
+- A large clinical trial studying the effect of a pest management intervention on asthma outcomes, the reported analysis is ultimately a simple comparison of asthma symptoms in two groups
+
+--
+
+-  Such an analysis is acceptable here due to the strict pre-specification of the analysis and due to the standards and practices that the community has developed regarding the reporting of clinical trials
+---
+
+class: title title-1, center
+
+# <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
+&lt;br&gt;&lt;br&gt;
+
+.huge[[bit.ly/bem-392-s23-ae3](https://bit.ly/bem-392-s23-ae3)]
+
+---
+
+class: title title-1
+
+# Design Principles of Data Analysis
+
+.box-2[Data Matching]
+
+.box-2[Exhaustive]
+
+.box-2[Skeptical]
+
+.box-inv-1[Second Order]
+
+.box-2[Clarity]
+
+.box-2[Reproducible]
+
+---
+
+class: center
+
+&lt;figure&gt;
+&lt;img src = "img/second-order.jpeg" width = '70%'&gt; &lt;/img&gt;
+&lt;/figure&gt;
+
+---
+
+class: title title-1
+
+# Second Order
+
+&lt;br&gt;
+
+.box-inv-1[An analysis is *second-order* if it includes methods, tooling or workflows that do not directly address the primary question, but give important context or supporting information to the analysis]
+
+
+---
+
+class: title title-1
+
+# Second Order Example
+
+- In presenting an analysis of data collected from a new type of machine, one may include details of who manufactured the machine, why it was built, or how it operates
+
+--
+
+- Often, in studies where data are collected in the field, such as in people’s homes, field workers can relay important details about the circumstances under which the data were collected
+---
+
+class: title title-1, center
+
+# <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
+&lt;br&gt;&lt;br&gt;
+
+.huge[[bit.ly/bem-392-s23-ae3](https://bit.ly/bem-392-s23-ae3)]
+
+---
+
+class: title title-1
+
+# Design Principles of Data Analysis
+
+.box-2[Data Matching]
+
+.box-2[Exhaustive]
+
+.box-2[Skeptical]
+
+.box-2[Second Order]
+
+.box-inv-1[Clarity]
+
+.box-2[Reproducible]
+
+---
+
+class: title title-1
+
+# Clarity
+
+&lt;br&gt;
+
+.box-inv-1[Analyses with *clarity* summarize or visualize data in a way that is influential in explaining how the underlying data phenomena or data-generation process connects to any key output, results, or conclusions]
+
+---
+
+
+class: center
+
+&lt;figure&gt;
+&lt;img src = "img/transparent-v2.jpeg" width = '70%'&gt; &lt;/img&gt;
+&lt;/figure&gt;
+---
+
+class: title title-1, center
+
+# <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
+&lt;br&gt;&lt;br&gt;
+
+.huge[[bit.ly/bem-392-s23-ae3](https://bit.ly/bem-392-s23-ae3)]
+
+---
+
+
+class: title title-1
+
+# Design Principles of Data Analysis
+
+.box-2[Data Matching]
+
+.box-2[Exhaustive]
+
+.box-2[Skeptical]
+
+.box-2[Second Order]
+
+.box-2[Clarity]
+
+.box-inv-1[Reproducible]
+
+---
+
+class: title title-1
+
+# Reproducible
+
+&lt;br&gt;
+
+.box-inv-1[An analysis is *reproducible* if someone who is not the original producer can take the published code and data and compute the same results as the original producer]
+
+---
+
+class: center
+
+&lt;figure&gt;
+&lt;img src = "img/reproducible.jpeg" width = '70%'&gt; &lt;/img&gt;
+&lt;/figure&gt;
+---
+
+class: title title-1, center
+
+# <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
+&lt;br&gt;&lt;br&gt;
+
+.huge[[bit.ly/bem-392-s23-ae3](https://bit.ly/bem-392-s23-ae3)]
+
+---
+
+class: title-1 title center
+
+# Alignment
+
+&lt;figure&gt;
+&lt;img src = "img/producers-consumers.png" width = '70%'&gt; &lt;/img&gt;
+&lt;/figure&gt;
+
+---
+
+class: title title-1, center
+
+# <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
+&lt;br&gt;&lt;br&gt;
+
+.huge[[bit.ly/bem-392-s23-ae1](https://bit.ly/bem-392-s23-ae1)]
+
+---
+
+class: title title-1, center
+
+# <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
+&lt;br&gt;&lt;br&gt;
+
+.huge[[bit.ly/bem-392-s23-ae2](https://bit.ly/bem-392-s23-ae2)]
+
+---
+
+class: title-inv-1 middle center
+
+# Part 3: Discuss with client and re-submit scores by end of February
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"navigation": {
+"scroll": false
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
