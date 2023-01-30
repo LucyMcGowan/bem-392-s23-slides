@@ -633,6 +633,6 @@ class: title title-1, center
 
 class: title-inv-1 middle center
 
-# Part 3: Discuss with client and re-submit scores by end of February
+# Part 3: Discuss with client and re-submit scores before the next report is due
 
 
