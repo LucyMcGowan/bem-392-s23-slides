@@ -54,7 +54,7 @@ class: title title-1
 # Follow Along
 <br><br>
 .center[
-# [bit.ly/bem-392-s22-slides-2](https://bit.ly/bem-392-s22-slides-2)
+# [bit.ly/bem-392-slides-2](https://bit.ly/bem-392-slides-2)
 ]
 ---
 
@@ -732,16 +732,16 @@ class: title title-1
 <img src ="img/rmarkdown.png" height = 500></img>
 ]
 
-.footer[https://rmarkdown.rstudio.com/index.html]
+.footer[https://quarto.org/docs/guide/]
 ---
 
 
 class: title title-1
 
-# Creating an R Markdown File
+# Creating an Quarto File
 
 .center[
-<img src = "img/rmd.png" height = 500></img>
+<img src = "img/02/quarto-new.png" width = 1000></img>
 ]
 
 ---
@@ -751,7 +751,7 @@ class: title title-1
 # Using Visual Editor
 
 .center[
-<img src = "img/visual-editor.png" width = 1000></img>
+<img src = "img/02/visual.png" width = 1000></img>
 ]
 
 ---
@@ -802,15 +802,15 @@ Wrap inline code with backticks
 
 class: title title-1
 
-# Knitr Output
+# Render Output
 
 .center[
-<img src = "img/knit.png" height = 300></img>
+<img src = "img/render.png" height = 300></img>
 ]
 ---
 
 class: title title-1
-# R Markdown
+# Markdown
 
 .pull-left[
 
@@ -830,7 +830,7 @@ class: title title-1
 ]
 ---
 class: title title-1
-# R Markdown
+# Markdown
 
 .pull-left[
 
@@ -853,7 +853,7 @@ class: title title-1
 
 class: center middle section-title section-title-1
 
-# Learn More: [rmarkdown.rstudio.com](https://rmarkdown.rstudio.com/index.html)
+# Learn More: [https://quarto.org/docs/guide/](https://quarto.org/docs/guide/)
 
 ---
 
@@ -932,7 +932,7 @@ class: title title-1
 .pull-right[
 ```{r, eval = FALSE}
 library(gtsummary)
-data %>%
+data |>
   tbl_summary()
 ```
 ]
@@ -954,7 +954,7 @@ class: title title-1
 # `r fontawesome::fa("laptop")` Application Exercise
 
 .box-1[
-Go to [bit.ly/bem-392-s22-rstudio](https://bit.ly/bem-392-s22-rstudio)
+Go to [bit.ly/bem-392-rstudio](https://bit.ly/bem-392-rstudio)
 ]
 
 --
@@ -984,7 +984,7 @@ class: title title-1
 
 `r countdown::countdown(3)`
 .footer[
-Go to [bit.ly/bem-392-s22-rstudio](https://bit.ly/bem-392-s22-rstudio)
+Go to [bit.ly/bem-392-rstudio](https://bit.ly/bem-392-rstudio)
 ]
 ---
 
@@ -992,22 +992,22 @@ class: title title-1
 
 # `r fontawesome::fa("laptop")` Application Exercise
 
-.box-1[[2] Explore Report.Rmd]
+.box-1[[2] Explore Report.qmd]
 
-.box-inv-1[In the File Pane go to reports/report.Rmd]
+.box-inv-1[In the File Pane go to reports/report.qmd]
 
 .box-inv-1[Switch to visual editor]
 
 .box-inv-1[Change the author to your name]
 
-.box-inv-1[Knit the report]
+.box-inv-1[Render the report]
 
 .box-inv-1[Find it, open it]
 
 
 `r countdown::countdown(3)`
 .footer[
-Go to [bit.ly/bem-392-s22-rstudio](https://bit.ly/bem-392-s22-rstudio)
+Go to [bit.ly/bem-392-rstudio](https://bit.ly/bem-392-rstudio)
 ]
 
 ---
@@ -1023,13 +1023,11 @@ class: title title-1
 
 .box-inv-1[What packages does this report use?]
 
-.box-inv-1[What does the `message = FALSE, warning = FALSE` do?]
-
-.box-inv-1[Hint: Use the R Markdown Cheat Sheet!]
+.box-inv-1[What does the `message: false, warning: false` do?]
 
 `r countdown::countdown(3, top = 0, margin = "10%", font_size = "2em")`
 .footer[
-Go to [bit.ly/bem-392-s22-rstudio](https://bit.ly/bem-392-s22-rstudio)
+Go to [bit.ly/bem-392-rstudio](https://bit.ly/bem-392-rstudio)
 ]
 ---
 
@@ -1047,11 +1045,11 @@ class: title title-1
 
 .box-inv-1[Fill in the table with the number for each (you can use the output from the R code)]
 
-.box-inv-1[Knit the report]
+.box-inv-1[Render the report]
 
 `r countdown::countdown(5, top = 0, margin = "10%", font_size = "2em")`
 .footer[
-Go to [bit.ly/bem-392-s22-rstudio](https://bit.ly/bem-392-s22-rstudio)
+Go to [bit.ly/bem-392-rstudio](https://bit.ly/bem-392-rstudio)
 ]
 ---
 
@@ -1064,19 +1062,19 @@ class: title title-1
 .box-inv-1[Replace your second chunk with this code]
 
 ```{r, eval = FALSE}
-df %>%
-  filter(fan_starwars == "Yes") %>%
+df |>
+  filter(fan_starwars == "Yes") |>
   tbl_summary(include = who_shot_first,
               label = list(who_shot_first ~ "Who Shot First?"))
 ```
 
-.box-inv-1[Knit the report]
+.box-inv-1[Render the report]
 
 .box-inv-1[Open the report. What changed?]
 
 `r countdown::countdown(4, top = 0, margin = "10%", font_size = "2em")`
 .footer[
-Go to [bit.ly/bem-392-s22-rstudio](https://bit.ly/bem-392-s22-rstudio)
+Go to [bit.ly/bem-392-rstudio](https://bit.ly/bem-392-rstudio)
 ]
 ---
 
@@ -1091,7 +1089,7 @@ Go to [bit.ly/bem-392-s22-rstudio](https://bit.ly/bem-392-s22-rstudio)
 
 `r countdown::countdown(4, top = 0, margin = "10%", font_size = "2em")`
 .footer[
-Go to [bit.ly/bem-392-s22-rstudio](https://bit.ly/bem-392-s22-rstudio)
+Go to [bit.ly/bem-392-rstudio](https://bit.ly/bem-392-rstudio)
 ]
 
 

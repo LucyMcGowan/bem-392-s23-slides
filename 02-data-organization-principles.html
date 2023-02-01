@@ -4,7 +4,7 @@
     <title>Data Organization Principles</title>
     <meta charset="utf-8" />
     <meta name="author" content="Lucy D’Agostino McGowan" />
-    <meta name="date" content="2023-01-31" />
+    <meta name="date" content="2023-02-01" />
     <script src="libs/header-attrs-2.20/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
@@ -44,7 +44,7 @@ class: title title-1
 # Follow Along
 &lt;br&gt;&lt;br&gt;
 .center[
-# [bit.ly/bem-392-s22-slides-2](https://bit.ly/bem-392-s22-slides-2)
+# [bit.ly/bem-392-slides-2](https://bit.ly/bem-392-slides-2)
 ]
 ---
 
@@ -722,16 +722,16 @@ class: title title-1
 &lt;img src ="img/rmarkdown.png" height = 500&gt;&lt;/img&gt;
 ]
 
-.footer[https://rmarkdown.rstudio.com/index.html]
+.footer[https://quarto.org/docs/guide/]
 ---
 
 
 class: title title-1
 
-# Creating an R Markdown File
+# Creating an Quarto File
 
 .center[
-&lt;img src = "img/rmd.png" height = 500&gt;&lt;/img&gt;
+&lt;img src = "img/02/quarto-new.png" width = 1000&gt;&lt;/img&gt;
 ]
 
 ---
@@ -741,7 +741,7 @@ class: title title-1
 # Using Visual Editor
 
 .center[
-&lt;img src = "img/visual-editor.png" width = 1000&gt;&lt;/img&gt;
+&lt;img src = "img/02/visual.png" width = 1000&gt;&lt;/img&gt;
 ]
 
 ---
@@ -792,15 +792,15 @@ Wrap inline code with backticks
 
 class: title title-1
 
-# Knitr Output
+# Render Output
 
 .center[
-&lt;img src = "img/knit.png" height = 300&gt;&lt;/img&gt;
+&lt;img src = "img/render.png" height = 300&gt;&lt;/img&gt;
 ]
 ---
 
 class: title title-1
-# R Markdown
+# Markdown
 
 .pull-left[
 
@@ -820,7 +820,7 @@ class: title title-1
 ]
 ---
 class: title title-1
-# R Markdown
+# Markdown
 
 .pull-left[
 
@@ -843,7 +843,7 @@ class: title title-1
 
 class: center middle section-title section-title-1
 
-# Learn More: [rmarkdown.rstudio.com](https://rmarkdown.rstudio.com/index.html)
+# Learn More: [https://quarto.org/docs/guide/](https://quarto.org/docs/guide/)
 
 ---
 
@@ -923,7 +923,7 @@ class: title title-1
 
 ```r
 library(gtsummary)
-data %&gt;%
+data |&gt;
   tbl_summary()
 ```
 ]
@@ -945,7 +945,7 @@ class: title title-1
 # <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
 
 .box-1[
-Go to [bit.ly/bem-392-s22-rstudio](https://bit.ly/bem-392-s22-rstudio)
+Go to [bit.ly/bem-392-rstudio](https://bit.ly/bem-392-rstudio)
 ]
 
 --
@@ -973,12 +973,12 @@ class: title title-1
 
 .box-inv-1[Where is the main report located? Open it.]
 
-<div class="countdown" id="timer_2b009255" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_9927715b" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 .footer[
-Go to [bit.ly/bem-392-s22-rstudio](https://bit.ly/bem-392-s22-rstudio)
+Go to [bit.ly/bem-392-rstudio](https://bit.ly/bem-392-rstudio)
 ]
 ---
 
@@ -986,25 +986,25 @@ class: title title-1
 
 # <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
 
-.box-1[[2] Explore Report.Rmd]
+.box-1[[2] Explore Report.qmd]
 
-.box-inv-1[In the File Pane go to reports/report.Rmd]
+.box-inv-1[In the File Pane go to reports/report.qmd]
 
 .box-inv-1[Switch to visual editor]
 
 .box-inv-1[Change the author to your name]
 
-.box-inv-1[Knit the report]
+.box-inv-1[Render the report]
 
 .box-inv-1[Find it, open it]
 
 
-<div class="countdown" id="timer_4f8bc730" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_8261bd41" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 .footer[
-Go to [bit.ly/bem-392-s22-rstudio](https://bit.ly/bem-392-s22-rstudio)
+Go to [bit.ly/bem-392-rstudio](https://bit.ly/bem-392-rstudio)
 ]
 
 ---
@@ -1020,16 +1020,14 @@ class: title title-1
 
 .box-inv-1[What packages does this report use?]
 
-.box-inv-1[What does the `message = FALSE, warning = FALSE` do?]
+.box-inv-1[What does the `message: false, warning: false` do?]
 
-.box-inv-1[Hint: Use the R Markdown Cheat Sheet!]
-
-<div class="countdown" id="timer_26293ed6" data-update-every="1" tabindex="0" style="top:0;right:0;margin:10%;font-size:2em;">
+<div class="countdown" id="timer_75e5eac2" data-update-every="1" tabindex="0" style="top:0;right:0;margin:10%;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 .footer[
-Go to [bit.ly/bem-392-s22-rstudio](https://bit.ly/bem-392-s22-rstudio)
+Go to [bit.ly/bem-392-rstudio](https://bit.ly/bem-392-rstudio)
 ]
 ---
 
@@ -1047,14 +1045,14 @@ class: title title-1
 
 .box-inv-1[Fill in the table with the number for each (you can use the output from the R code)]
 
-.box-inv-1[Knit the report]
+.box-inv-1[Render the report]
 
-<div class="countdown" id="timer_17cbc9df" data-update-every="1" tabindex="0" style="top:0;right:0;margin:10%;font-size:2em;">
+<div class="countdown" id="timer_97497065" data-update-every="1" tabindex="0" style="top:0;right:0;margin:10%;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 .footer[
-Go to [bit.ly/bem-392-s22-rstudio](https://bit.ly/bem-392-s22-rstudio)
+Go to [bit.ly/bem-392-rstudio](https://bit.ly/bem-392-rstudio)
 ]
 ---
 
@@ -1068,22 +1066,22 @@ class: title title-1
 
 
 ```r
-df %&gt;%
-  filter(fan_starwars == "Yes") %&gt;%
+df |&gt;
+  filter(fan_starwars == "Yes") |&gt;
   tbl_summary(include = who_shot_first,
               label = list(who_shot_first ~ "Who Shot First?"))
 ```
 
-.box-inv-1[Knit the report]
+.box-inv-1[Render the report]
 
 .box-inv-1[Open the report. What changed?]
 
-<div class="countdown" id="timer_ae95558e" data-update-every="1" tabindex="0" style="top:0;right:0;margin:10%;font-size:2em;">
+<div class="countdown" id="timer_9822ea21" data-update-every="1" tabindex="0" style="top:0;right:0;margin:10%;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">04</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 .footer[
-Go to [bit.ly/bem-392-s22-rstudio](https://bit.ly/bem-392-s22-rstudio)
+Go to [bit.ly/bem-392-rstudio](https://bit.ly/bem-392-rstudio)
 ]
 ---
 
@@ -1096,12 +1094,12 @@ Go to [bit.ly/bem-392-s22-rstudio](https://bit.ly/bem-392-s22-rstudio)
 
 .box-inv-1[Expand the table created to examine other variables]
 
-<div class="countdown" id="timer_b011339b" data-update-every="1" tabindex="0" style="top:0;right:0;margin:10%;font-size:2em;">
+<div class="countdown" id="timer_c988e90c" data-update-every="1" tabindex="0" style="top:0;right:0;margin:10%;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">04</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 .footer[
-Go to [bit.ly/bem-392-s22-rstudio](https://bit.ly/bem-392-s22-rstudio)
+Go to [bit.ly/bem-392-rstudio](https://bit.ly/bem-392-rstudio)
 ]
 
 
