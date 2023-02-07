@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Data Visualization</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Lucy D’Agostino McGowan" />
+    <meta name="date" content="2023-02-07" />
+    <script src="libs/header-attrs-2.20/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <link href="libs/countdown-0.4.0/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown-0.4.0/countdown.js"></script>
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+
+
+class: center middle main-title section-title-1
+
+# Data Visualization
+
+.class-info[
+
+**Session 4**
+
+.light[BEM 392: Math Business Capstone&lt;br&gt;
+Lucy D'Agostino McGowan
+]
+
+]
+
+---
+
+class: title title-1
+
+# Follow Along
+&lt;br&gt;&lt;br&gt;
+.center[
+# [bit.ly/bem-392-slides-4](https://bit.ly/bem-392-slides-4)
+]
+
+---
+
+class: title title-1
+
+# <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
+
+.box-1[
+Go to [bit.ly/bem-392-rstudio](https://bit.ly/bem-392-rstudio)
+]
+
+.box-1[Open `code\03-generate-figures.R`]
+
+.box-1.small[We want to extract rows based on the following logical criteria: only include rows where the respondent's age is between 18-29. Edit the code below to do that.]
+
+.small[
+
+```r
+young_starwars_survey &lt;- starwars_survey |&gt;
+  ------(CAT_DEMOGRAPHIC_AGE == -----)
+```
+]
+
+.box-1.small[Hint: Don't remember how to filter rows? Find the `dplyr` Cheatsheet under `Help &gt; Cheatsheats &gt; Data transformations with dplyr`]
+
+
+```r
+countdown::countdown(4, top = 0, font_size = "1em", margin = "5%")
+```
+
+<div class="countdown" id="timer_053595d3" data-update-every="1" tabindex="0" style="top:0;right:0;margin:5%;font-size:1em;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">04</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+
+class: title title-1
+
+# Good visualizations
+
+.box-1.medium[Reveal structure]
+
+--
+
+.box-1.medium[Show data]
+
+--
+
+.box-1.medium[Properly scaled]
+
+--
+
+.box-1.medium[Sensibly arranged]
+
+--
+
+.box-1.medium[Draw attention to the key points]
+---
+
+class: title title-1
+
+# ggplot2 `\(\in\)` tidyverse
+.footer[ 
+Adapted from datasciencebox.com &lt;sup&gt;†&lt;/sup&gt; Source: [BloggoType](http://bloggotype.blogspot.com/2016/08/holiday-notes2-grammar-of-graphics.html)
+]
+.pull-left-3[
+&lt;img src = "img/02/ggplot2-part-of-tidyverse.png" height = "400"&gt; &lt;/img&gt;
+]
+
+.pull-middle-3[
+&lt;img src = "img/02/grammar-of-graphics.png" height = "400"&gt;&lt;/img&gt;
+]
+.pull-right-3[
+.small[
+- **ggplot2** is tidyverse's data visualization package
+- The `gg` in "ggplot2" stands for Grammar of Graphics
+- It is inspired by the book **Grammar of Graphics** by Leland Wilkinson &lt;sup&gt;†&lt;/sup&gt;
+]
+]
+
+
+---
+class: title title-1
+# ggplot2 components
+
+- **data**
+- **aes**thetic mapping
+- layer(s)
+
+---
+class: title title-1
+
+# ggplot2 premise
+
+![](img/02/ggplot-premise.png)
+
+---
+class: title title-1
+
+# Hello ggplot2!
+
+![](img/02/layer-1.png)
+
+---
+class: title title-1
+
+# Hello ggplot2!
+
+![](img/02/layer-2.png)
+
+---
+class: title title-1
+
+# Hello ggplot2!
+
+![](img/02/layer-3.png)
+
+---
+class: title title-1
+
+# Hello ggplot2!
+
+![](img/02/layer-4.png)
+
+---
+class: title title-1
+
+# Hello ggplot2!
+
+![](img/02/layer-5.png)
+
+---
+class: title title-1
+
+# Hello ggplot2!
+.footer[Adapted from datasciencebox.org]
+
+- `ggplot()` is the main function in ggplot2 and plots are constructed in layers
+- The structure of the code for plots can often be summarized as
+
+.small[
+
+```r
+ggplot + 
+  geom_xxx
+```
+]
+
+--
+
+or, more precisely
+
+.small[
+
+```r
+ggplot(data = [dataset], mapping = aes(x = [x-variable], y = [y-variable])) +
+  geom_xxx() +
+  other options
+```
+]
+
+---
+class: title title-1
+
+# Hello ggplot2!
+.footer[Adapted from datasciencebox.org]
+
+- To use ggplot2 functions, first load tidyverse
+
+
+```r
+library(tidyverse)
+```
+
+--
+.small[
+- For help with the ggplot2, see [ggplot2.tidyverse.org](http://ggplot2.tidyverse.org/)  
+- `Help &gt; Cheatsheats &gt; Data Visualizations in ggplot`
+]
+---
+
+class: title title-1
+.footer[Adapted from datasciencebox.org]
+# Mass vs. height
+
+.pull-left[
+.small[
+
+```r
+ggplot(data = starwars, 
+       mapping = aes(
+         x = height, 
+         y = mass)) +
+  geom_point()
+```
+]
+]
+
+.pull-right[
+&lt;img src="04-data-visualization_files/figure-html/unnamed-chunk-7-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: title title-1
+.footer[Adapted from datasciencebox.org]
+# What's that warning?
+
+- Not all characters have height and mass information (hence 28 of them not plotted)
+
+.small[
+```
+## Warning: Removed 28 rows containing missing values (geom_point).
+```
+]
+
+- Going forward I'll suppress the warning to save room on slides, but it's important to note it
+
+---
+class: title title-1
+.footer[Adapted from datasciencebox.org]
+# Mass vs. height
+
+.pull-left[
+.small[
+
+```r
+ggplot(data = starwars,
+       mapping = aes(
+         x = height, 
+         y = mass)) +
+  geom_point() +
+* labs(title = "Mass vs. height of Starwars characters",
+*      x = "Height (cm)",
+*      y = "Weight (kg)")
+```
+]
+
+]
+
+.pull-right[
+&lt;img src="04-data-visualization_files/figure-html/unnamed-chunk-9-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: title title-1
+.footer[Adapted from datasciencebox.org]
+# Jabba!
+
+
+
+&lt;img src = "img/02/jabbaplot.png" height = "500"&gt;&lt;/img&gt;
+
+---
+class: title title-1
+.footer[Adapted from datasciencebox.org]
+# Additional variables
+
+We can map additional variables to various features of the plot:
+
+- aesthetics
+- color
+- size
+- shape
+- alpha (transparency)
+- faceting: small multiples displaying different subsets
+
+---
+
+class: section-title section-title-1 center, middle
+
+# Aesthetics
+
+---
+class: title title-1
+.footer[Adapted from datasciencebox.org]
+# Aesthetics options
+
+Visual characteristics of plotting characters that can be **mapped to a specific variable**
+in the data are
+
+- `color`
+- `size`
+- `shape`
+- `alpha` (transparency)
+
+---
+class: title title-1
+.footer[Adapted from datasciencebox.org]
+# Mass vs. height + gender
+
+.pull-left[
+.small[
+
+```r
+ggplot(data = starwars,
+       mapping = aes(
+         x = height, 
+         y = mass, 
+         color = gender)) +
+  geom_point()
+```
+]
+]
+
+.pull-right[
+&lt;img src="04-data-visualization_files/figure-html/unnamed-chunk-12-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+---
+class: title title-1
+.footer[Adapted from datasciencebox.org]
+# Mass vs. height + gender
+
+.pull-left[
+.small[
+
+```r
+ggplot(data = starwars,
+       mapping = aes(
+         x = height, 
+         y = mass, 
+         color = gender, 
+*        size = birth_year
+       )) +
+  geom_point()
+```
+]
+]
+
+.pull-right[
+&lt;img src="04-data-visualization_files/figure-html/unnamed-chunk-14-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: title title-1
+.footer[Adapted from datasciencebox.org]
+# Mass vs. height + gender
+
+.pull-left[
+.small[
+
+```r
+ggplot(data = starwars, 
+       mapping = aes(
+         x = height, 
+         y = mass, 
+         color = gender)) +
+* geom_point(size = 2)
+```
+]
+]
+
+.pull-right[
+&lt;img src="04-data-visualization_files/figure-html/unnamed-chunk-16-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: title title-1
+.footer[Adapted from datasciencebox.org]
+# Aesthetics summary
+
+.small[
+- Continuous variable are measured on a continuous scale
+- Discrete variables are measured (or often counted) on a discrete scale
+]
+.small[
+
+
+aesthetics    | discrete                 | continuous
+------------- | ------------------------ | ------------
+color         | rainbow of colors        | gradient
+size          | discrete steps           | linear mapping between radius and value
+shape         | different shape for each | shouldn't (and doesn't) work
+
+]
+- Use aesthetics for mapping features of a plot to a variable, define the features in the geom for customization **not** mapped to a variable
+
+---
+
+class: section-title section-title-1 center, middle
+
+# Faceting
+
+---
+class: title title-1
+.footer[Adapted from datasciencebox.org]
+# Faceting options
+
+.small[
+- Smaller plots that display different subsets of the data
+- Useful for exploring conditional relationships and large data
+]
+.pull-left[
+.small[
+
+```r
+ggplot(data = starwars, 
+       mapping = aes(x = height, 
+                     y = mass)) +
+* facet_grid(. ~ gender) +
+  geom_point() +
+  labs(title = "Mass vs. height of Starwars characters",
+*      subtitle = "Faceted by gender",
+       x = "Height (cm)", 
+       y = "Weight (kg)")
+```
+]
+]
+.pull-right[
+&lt;img src="04-data-visualization_files/figure-html/unnamed-chunk-18-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: title title-1
+.footer[Adapted from datasciencebox.org]
+# Facet summary
+
+- `facet_grid()`: 
+- 2d grid
+- `rows ~ cols`
+- use `.` for no split
+- `facet_wrap()`: 1d ribbon wrapped into 2d
+
+---
+
+class: title title-1
+
+# More ggplot2 info:
+
+.box-1.medium[ggplot2 in 2]
+
+.box-1.medium[[https://leanpub.com/ggplot2in2/c/bem-392-s23](https://leanpub.com/ggplot2in2/c/bem-392-s23)]
+
+---
+class: title title-1
+
+# <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
+
+
+.box-1[Add the following code to your `03-generate-figures.R` file]
+
+
+```r
+ggplot(young_starwars_survey, 
+       aes(x = VAL_RANK_EPISODE_1, y = CAT_FAVOR_PADME)) + 
+  labs(x = "------",
+       y = "------")
+```
+
+.box-1[What is going to be on the x-axis? What is going to be on the y-axis? Fill in the `x` and `y` labels.]
+
+.box-1.small[Find the `ggplot` Cheatsheet under `Help &gt; Cheatsheats &gt; Data Visualizations with ggplot2`]
+
+<div class="countdown" id="timer_4b680250" data-update-every="1" tabindex="0" style="top:0;right:0;margin:5%;font-size:1em;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">04</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+.box-1.small[Find the `ggplot` Cheatsheet under `Help &gt; Cheatsheats &gt; Data Visualizations with ggplot2`]
+---
+
+class: title title-1
+
+# Good visualizations
+
+.box-1.medium[Reveal structure]
+
+
+.box-2.medium[Show data]
+
+
+.box-2.medium[Properly scaled]
+
+
+.box-2.medium[Sensibly arranged]
+
+
+.box-2.medium[Draw attention to the key points]
+---
+
+class: title title-1
+
+# Reveal Structure
+
+
+&lt;img src="04-data-visualization_files/figure-html/unnamed-chunk-21-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+class: title title-1
+# Reveal structure
+
+&lt;img src="04-data-visualization_files/figure-html/unnamed-chunk-22-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: title title-1
+
+# Reveal Structure
+
+&lt;img src="04-data-visualization_files/figure-html/unnamed-chunk-23-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+class: title title-1
+
+# Data types
+
+.box-1[📏 Continuous]
+
+--
+
+.box-1[📊 Categorical]
+
+--
+
+.box-1[🐔 🦄 🦒 Nominal]
+
+--
+
+.box-1[🙂 😐🙁 Ordinal]
+
+---
+
+class: section-title section-title-1 center, middle
+
+# Visualizing numerical data
+
+---
+class: title title-1
+
+.footer[Adapted from datasciencebox.org]
+# Describing shapes of numerical distributions
+
+* shape:
+* skewness: right-skewed, left-skewed, symmetric (skew is to the side of the longer tail)
+* modality: unimodal, bimodal, multimodal, uniform
+* center: mean (`mean`), median (`median`), mode (not always useful)
+* spread: range (`range`), standard deviation (`sd`), inter-quartile range (`IQR`)
+* unusual observations
+
+---
+class: title title-1
+
+.footer[Adapted from datasciencebox.org]
+# Histograms
+
+.small[
+
+```r
+ggplot(data = starwars, mapping = aes(x = height)) +
+  geom_histogram(binwidth = 10)
+```
+
+&lt;img src="04-data-visualization_files/figure-html/unnamed-chunk-24-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: title title-1
+
+.footer[Adapted from datasciencebox.org]
+# Density plots
+
+.small[
+
+```r
+ggplot(data = starwars, mapping = aes(x = height)) +
+  geom_density()
+```
+
+&lt;img src="04-data-visualization_files/figure-html/unnamed-chunk-25-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: title title-1
+
+.footer[Adapted from datasciencebox.org]
+# Side-by-side box plots
+
+.small[
+
+```r
+ggplot(data = starwars, mapping = aes(y = height, x = gender)) +
+  geom_boxplot()
+```
+
+&lt;img src="04-data-visualization_files/figure-html/unnamed-chunk-26-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: title title-1
+
+.footer[Adapted from datasciencebox.org]
+# Side-by-side box plots
+
+.small[
+
+```r
+ggplot(data = starwars, mapping = aes(y = height, x = gender)) +
+  geom_boxplot(outlier.shape = NA) + 
+  geom_jitter()
+```
+
+&lt;img src="04-data-visualization_files/figure-html/unnamed-chunk-27-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+
+class: section-title section-title-acenter, middle
+
+# Visualizing categorical data
+
+---
+class: title title-1
+
+.footer[Adapted from datasciencebox.org]
+# Bar plots
+
+.small[
+
+```r
+ggplot(data = starwars, mapping = aes(x = gender)) +
+  geom_bar()
+```
+
+&lt;img src="04-data-visualization_files/figure-html/unnamed-chunk-28-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: title title-1
+
+.footer[Adapted from datasciencebox.org]
+# Segmented bar plots, counts
+
+.small[
+
+```r
+ggplot(data = starwars,
+       mapping = aes(x = gender, fill = hair_color)) +
+  geom_bar()
+```
+
+&lt;img src="04-data-visualization_files/figure-html/unnamed-chunk-29-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: title title-1
+
+.footer[Adapted from datasciencebox.org]
+# Segmented bar plots, proportions
+
+.small[
+
+```r
+ggplot(data = starwars, 
+       mapping = aes(x = gender, fill = hair_color)) +
+  geom_bar(position = "fill") +
+  labs(y = "proportion")
+```
+
+&lt;img src="04-data-visualization_files/figure-html/unnamed-chunk-30-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+
+---
+
+class: title title-1
+
+# Good visualizations
+
+.box-2.medium[Reveal structure]
+
+.box-1.medium[Show data]
+
+.box-2.medium[Properly scaled]
+
+.box-2.medium[Sensibly arranged]
+
+
+.box-2.medium[Draw attention to the key points]
+---
+
+class: title title-1
+
+# Show data
+
+&lt;img src="04-data-visualization_files/figure-html/unnamed-chunk-31-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: title title-1
+
+# Show data
+
+&lt;img src="04-data-visualization_files/figure-html/unnamed-chunk-32-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: title title-1
+
+# <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
+
+.box-1[Plot `VAL_RANK_EPISODE_1` by `CAT_FAVOR_PADME` among young survey respondents]
+
+&lt;img src="04-data-visualization_files/figure-html/unnamed-chunk-33-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+
+.box-1[Hint, you'll need to add `geom_jitter()`]
+
+
+
+```r
+countdown::countdown(4, top = 0, font_size = "1em", margin = "5%")
+```
+
+<div class="countdown" id="timer_2d147dcb" data-update-every="1" tabindex="0" style="top:0;right:0;margin:5%;font-size:1em;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">04</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+
+---
+
+class: title title-1
+
+# Good visualizations
+
+.box-2.medium[Reveal structure]
+
+.box-2.medium[Show data]
+
+.box-1.medium[Properly scaled]
+
+.box-2.medium[Sensibly arranged]
+
+.box-2.medium[Draw attention to the key points]
+---
+
+class: title title-1
+
+# Properly scaled
+
+&lt;img src="04-data-visualization_files/figure-html/unnamed-chunk-35-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: title title-1
+
+# Properly scaled
+
+&lt;img src="04-data-visualization_files/figure-html/unnamed-chunk-36-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: title title-1
+
+# Properly scaled
+
+&lt;img src="04-data-visualization_files/figure-html/unnamed-chunk-37-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+class: title title-1
+
+# Properly scaled
+
+&lt;img src="04-data-visualization_files/figure-html/unnamed-chunk-38-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: title title-1
+
+# Properly scaled
+
+&lt;img src="04-data-visualization_files/figure-html/unnamed-chunk-39-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: title title-1
+
+# Good visualizations
+
+.box-2.medium[Reveal structure]
+
+
+.box-2.medium[Show data]
+
+
+.box-2.medium[Properly scaled]
+
+.box-1.medium[Sensibly arranged]
+
+.box-2.medium[Draw attention to the key points]
+---
+
+class: title title-1
+
+# Sensibly arranged
+
+&lt;img src="04-data-visualization_files/figure-html/unnamed-chunk-40-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: title title-1
+# Sensibly arranged
+
+&lt;img src="04-data-visualization_files/figure-html/unnamed-chunk-41-1.png" width="504" style="display: block; margin: auto;" /&gt;
+---
+
+class: title title-1
+# Sensibly arranged
+
+&lt;img src="04-data-visualization_files/figure-html/unnamed-chunk-42-1.png" width="504" style="display: block; margin: auto;" /&gt;
+---
+
+class: title title-1
+# Sensibly arranged
+
+&lt;img src="04-data-visualization_files/figure-html/unnamed-chunk-43-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+---
+class: title title-1
+
+# forcats `\(\in\)` tidyverse
+
+.pull-left[
+
+.small[
+
+```r
+young_starwars_survey |&gt;
+  mutate(
+    CAT_FAVOR_PADME_ORDER = 
+      fct_infreq(CAT_FAVOR_PADME)
+    ) 
+```
+]
+]
+
+.pull-right[
+- `fct_relevel()` relevel fators
+- `fct_rev()` reverse factor
+- `fct_infreq()` order by the number of observations in each level
+- `fct_inorder()` order by the order in which they first appear in the dataset
+]
+---
+class: title title-1
+
+# <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
+
+.box-1[Copy the code below to create a bar plot]
+
+
+
+```r
+ggplot(young_starwars_survey, 
+       aes(x = CAT_FAVOR_PADME)) +
+  geom_bar() + 
+  coord_flip() + 
+  labs(y = "------")
+```
+
+.box-1[Use the `fct_relevel()` function to properly order the bars by the favorability order]
+
+<div class="countdown" id="timer_70e455bf" data-update-every="1" tabindex="0" style="top:0;right:0;margin:5%;font-size:1em;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">04</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: title title-1
+
+# Good visualizations
+
+.box-2.medium[Reveal structure]
+
+
+.box-2.medium[Show data]
+
+
+.box-2.medium[Properly scaled]
+
+.box-2.medium[Sensibly arranged]
+
+.box-1.medium[Draw attention to the key points]
+
+---
+class: title title-1
+
+# Draw attention to the key points
+
+
+
+&lt;img src="04-data-visualization_files/figure-html/unnamed-chunk-47-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: title title-1
+
+# <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
+
+.box-1[Create a new variable `CAT_RANK_EPISODE_1` that categorizes the `VAL_RANK_EPISODE_1` to "&lt; 5" or "5+"]
+
+.box-1[Create a new variable `COLOR` that is "blue" if `CAT_FAVOR_PADME` is "Unfamiliar (N/A)" or "red" otherwise]
+
+.box-1[Try to recreate the figure below.]
+
+&lt;img src="04-data-visualization_files/figure-html/unnamed-chunk-48-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+.box-1[Use the `fct_relevel()` function to properly order the bars by the favorability order]
+
+
+```r
+countdown::countdown(4, top = 0, font_size = "1em", margin = "5%")
+```
+
+<div class="countdown" id="timer_2c34e34a" data-update-every="1" tabindex="0" style="top:0;right:0;margin:5%;font-size:1em;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">04</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: title title-1
+
+# Good visualizations
+
+.box-1.medium[Reveal structure]
+
+
+.box-1.medium[Show data]
+
+
+.box-1.medium[Properly scaled]
+
+.box-1.medium[Sensibly arranged]
+
+.box-1.medium[Draw attention to the key points]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"navigation": {
+"scroll": false
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
