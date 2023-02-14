@@ -1,0 +1,1491 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Variable Selection</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Lucy D’Agostino McGowan" />
+    <meta name="date" content="2023-02-14" />
+    <script src="libs/header-attrs-2.20/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <link href="libs/countdown-0.4.0/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown-0.4.0/countdown.js"></script>
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+
+
+class: center middle main-title section-title-1
+
+# Variable Selection
+
+.class-info[
+
+**Session 7**
+
+.light[BEM 392: Math Business Capstone&lt;br&gt;
+Lucy D'Agostino McGowan
+]
+
+]
+
+---
+class: section-title section-title-1 center middle
+
+# bit.ly/bem-392-slides-6
+---
+
+class: section-title section-title-1 center middle
+
+# posit.cloud
+---
+class: center, middle
+&lt;img src="img/05-statistical-modeling-refresher.png" height="600"&gt;&lt;/img&gt;
+---
+class: center, middle
+&lt;img src="img/05-statistical-modeling-refresher-2.png" height="600"&gt;&lt;/img&gt;
+---
+
+class: title title-1
+
+# Causal variable selection
+
+.box-1.medium[To make an accurate causal claim, you need to measure and adjust for **all confounders**]
+
+--
+
+.box-inv-1.medium[correlation ≠ causation]
+
+--
+
+.box-1[Easiest way to *remove* confounding is to conduct a random experiment (A / B testing)]
+
+--
+
+.box-1[Absent of an experiment, learn more about **causal inference**]
+---
+
+class: title title-1
+
+# Causal variable selection
+
+.pull-left[
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-1-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+--
+
+.pull-right[
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-2-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+---
+class: center, middle
+&lt;img src="img/05-statistical-modeling-refresher-2.png" height="600"&gt;&lt;/img&gt;
+---
+
+class: title title-1 center
+
+# Exploratory variable selection
+
+&lt;img src = "img/wild-west.gif" height = "400"&gt;&lt;/img&gt;
+
+---
+class: center, middle
+&lt;img src="img/05-statistical-modeling-refresher-3.png" height="600"&gt;&lt;/img&gt;
+---
+
+class: section-title section-title-1 middle
+
+# Ask content matter experts first!
+
+---
+
+class: section-title section-title-1 middle
+
+# Why not just try everything and let the data "tell you"?
+
+---
+
+.left-plot[
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-3-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+---
+
+.left-plot[
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-4-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+--
+
+.right-code[
+By increasing the number of parameters (the number of variables) we can reduce the bias **in this sample** but it is **overfit and unlikely to hold in a new sample**
+]
+---
+
+.left-plot[
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-5-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+.right-code[
+By increasing the number of parameters (the number of variables) we can reduce the bias **in this sample** but it is **overfit and unlikely to hold in a new sample**
+]
+
+---
+
+class: title title-1
+
+# Overfitting
+
+.box-1[The more variables we include, the higher risk that the model will be overfit to the data]
+
+--
+
+.box-1[You want to choose methods that will balance the trade-off between reducing bias and overfitting to the data you have]
+
+---
+
+
+class: title title-1
+
+# Choosing variables
+
+1. Examine how variables cluster
+2. Perform redundancy analyses
+3. Examine the magnitude of impact variables have on your outcome 
+
+---
+class: section-title section-title-1 middle
+
+# Ask content matter experts first!
+
+---
+
+class: title title-1
+
+# Variable clustering
+
+.left-code[
+.small[
+
+```r
+library(Hmisc)
+v &lt;- varclus(~ wt + vs + am + disp + drat,
+             data = mtcars)
+plot(v)
+```
+]
+]
+
+.right-plot[
+
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-7-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: title title-1
+
+# Variable clustering
+
+.left-code[
+.small[
+
+```r
+library(Hmisc)
+v &lt;- varclus(~ wt + vs + am + disp + drat,
+             data = mtcars)
+plot(v)
+```
+]
+
+.box-1[Notice we aren't considering an outcome yet!]
+
+]
+
+
+.right-plot[
+
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-9-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+class: title title-1
+
+# Variable clustering
+
+.left-code[
+.small[
+
+```r
+*library(Hmisc)
+v &lt;- varclus(~ wt + vs + am + disp + drat, 
+             data = mtcars)
+plot(v)
+```
+]
+
+.box-1[Notice we aren't considering an outcome yet!]
+
+]
+
+
+.right-plot[
+
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-11-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+class: title title-1
+
+# Variable clustering
+
+.left-code[
+.small[
+
+```r
+library(Hmisc) 
+*v &lt;- varclus(~ wt + vs + am + disp + drat,
+             data = mtcars)
+plot(v)
+```
+]
+
+.box-1[Notice we aren't considering an outcome yet!]
+
+]
+
+
+.right-plot[
+
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-13-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+
+class: title title-1
+
+# Variable clustering
+
+.left-code[
+.small[
+
+```r
+library(Hmisc) 
+v &lt;- varclus(~ wt + vs + am + disp + drat, 
+*            data = mtcars)
+plot(v)
+```
+]
+
+.box-1[Notice we aren't considering an outcome yet!]
+
+]
+
+
+.right-plot[
+
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-15-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+---
+
+
+class: title title-1
+
+# Variable clustering
+
+.left-code[
+.small[
+
+```r
+*library(Hmisc)
+v &lt;- varclus(~ wt + vs + am + disp + drat, 
+             data = mtcars)
+*plot(v)
+```
+]
+
+.box-1[Notice we aren't considering an outcome yet!]
+
+]
+
+
+.right-plot[
+
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-17-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+---
+
+class: title title-1
+
+# <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
+
+.box-1[Go bit.ly/bem-392-s22-rstudio and Save a Copy]
+
+.box-1[Open `code/04-select-variables.R`]
+
+.box-1[Choose at least 5 variables to predict `VAL_RANK_EPISODE_1`. Use the `varclus` function to see how the variables cluster]
+
+<div class="countdown" id="timer_22e9ea6d" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">08</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+
+class: title title-1
+
+# Redundancy analysis
+
+.box-1[Examine how well each variable can be predicted by the remaining variables]
+
+--
+
+.box-1[Set a R2 value cutoff]
+
+--
+
+.box-1[Step through the variables, dropping one at a time, until you reach the cutoff]
+
+--
+
+.box-1[A variable is "redundant" if a linear combination of the remaining variables can predict that variable]
+
+---
+
+class: title title-1
+
+# Redundancy analysis
+
+.small[
+
+```r
+library(Hmisc)
+redun(~  wt + vs + am + disp + drat, data = mtcars, r2 = 0.75)
+```
+]
+
+--
+
+.box-1[What variables am I checking?]
+
+---
+
+class: title title-1
+
+# Redundancy analysis
+
+.small[
+
+```r
+library(Hmisc)
+redun(~  wt + vs + am + disp + drat, data = mtcars, r2 = 0.75)
+```
+]
+
+
+.box-1[What dataset am I using?]
+
+---
+
+
+class: title title-1
+
+# Redundancy analysis
+
+.small[
+
+```r
+library(Hmisc)
+redun(~  wt + vs + am + disp + drat, data = mtcars, r2 = 0.75)
+```
+]
+
+
+.box-1[What have I set as my R2 cutoff?]
+
+---
+
+class: title title-1
+
+# Redundancy analysis
+
+.small[
+
+```r
+library(Hmisc)
+redun(~  wt + vs + am + disp + drat, data = mtcars, r2 = 0.75)
+```
+]
+
+
+.box-1[Notice again we haven't included our outcome at all! This protects against *overfitting*]
+
+---
+
+
+class: title title-1
+
+# Redundancy analysis
+
+.pull-left-wide[
+.tiny[
+
+```
+## 
+## Redundancy Analysis
+## 
+## redun(formula = ~wt + vs + am + disp + drat, data = mtcars, r2 = 0.75)
+## 
+## n: 32 	p: 5 	nk: 3 
+## 
+## Number of NAs:	 0 
+## 
+## Transformation of target variables forced to be linear
+## 
+## R-squared cutoff: 0.75 	Type: ordinary 
+## 
+## R^2 with which each variable can be predicted from all other variables:
+## 
+##    wt    vs    am  disp  drat 
+## 0.840 0.692 0.710 0.877 0.693 
+## 
+## Rendundant variables:
+## 
+## disp
+## 
+## Predicted from variables:
+## 
+## wt vs am drat 
+## 
+##   Variable Deleted   R^2 R^2 after later deletions
+## 1             disp 0.877
+```
+]
+]
+
+---
+class: title title-1
+
+# Redundancy analysis
+
+.pull-left-wide[
+.tiny[
+
+```
+## 
+## Redundancy Analysis
+## 
+## redun(formula = ~wt + vs + am + disp + drat, data = mtcars, r2 = 0.75)
+## 
+## n: 32 	p: 5 	nk: 3 
+## 
+## Number of NAs:	 0 
+## 
+## Transformation of target variables forced to be linear
+## 
+## R-squared cutoff: 0.75 	Type: ordinary 
+## 
+## R^2 with which each variable can be predicted from all other variables:
+## 
+##    wt    vs    am  disp  drat 
+## 0.840 0.692 0.710 0.877 0.693 
+## 
+## Rendundant variables:
+## 
+## disp
+## 
+## Predicted from variables:
+## 
+## wt vs am drat 
+## 
+##   Variable Deleted   R^2 R^2 after later deletions
+## 1             disp 0.877
+```
+]
+]
+
+.pull-right-narrow[
+.box-1[What is redundant?]
+]
+
+---
+
+class: title title-1
+
+# Redundancy analysis
+
+.pull-left-wide[
+.tiny[
+
+```
+## 
+## Redundancy Analysis
+## 
+## redun(formula = ~wt + vs + am + disp + drat, data = mtcars, r2 = 0.75)
+## 
+## n: 32 	p: 5 	nk: 3 
+## 
+## Number of NAs:	 0 
+## 
+## Transformation of target variables forced to be linear
+## 
+## R-squared cutoff: 0.75 	Type: ordinary 
+## 
+## R^2 with which each variable can be predicted from all other variables:
+## 
+##    wt    vs    am  disp  drat 
+## 0.840 0.692 0.710 0.877 0.693 
+## 
+*## Rendundant variables:
+*## 
+*## disp
+## 
+## Predicted from variables:
+## 
+## wt vs am drat 
+## 
+##   Variable Deleted   R^2 R^2 after later deletions
+## 1             disp 0.877
+```
+]
+]
+
+.pull-right-narrow[
+.box-1[What is redundant?]
+]
+
+---
+
+class: title title-1
+
+# Redundancy analysis
+
+.pull-left-wide[
+.tiny[
+
+```
+## 
+## Redundancy Analysis
+## 
+## redun(formula = ~wt + vs + am + disp + drat, data = mtcars, r2 = 0.75)
+## 
+## n: 32 	p: 5 	nk: 3 
+## 
+## Number of NAs:	 0 
+## 
+## Transformation of target variables forced to be linear
+## 
+## R-squared cutoff: 0.75 	Type: ordinary 
+## 
+## R^2 with which each variable can be predicted from all other variables:
+## 
+##    wt    vs    am  disp  drat 
+## 0.840 0.692 0.710 0.877 0.693 
+## 
+*## Rendundant variables:
+*## 
+*## disp
+## 
+## Predicted from variables:
+## 
+## wt vs am drat 
+## 
+##   Variable Deleted   R^2 R^2 after later deletions
+## 1             disp 0.877
+```
+]
+]
+
+.pull-right-narrow[
+.box-1[What is redundant?]
+
+.box-1[Based on this, which variables should I include in my model?]
+]
+
+---
+
+class: title title-1
+
+# <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
+
+
+.box-1[Open `code/04-select-variables.R`]
+
+.box-1[Use the `redun` function to see if any variables are redundant with an R2 of 0.75]
+
+<div class="countdown" id="timer_cfec345c" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+
+class: title title-1
+
+# Correlations
+
+.box-1[This is the first time we're introducing the outcome!]
+
+--
+
+.box-1[We can use a *generalization* or Spearman's rho rank correlation to quantify the magnitude of effects of our remaining covariates]
+
+---
+
+class: title title-1
+
+# Correlations
+
+.left-code[
+
+```r
+library(Hmisc)
+
+s &lt;- spearman2(mpg ~ wt + vs + am + drat, 
+               data = mtcars)
+plot(s)
+```
+]
+.right-plot[
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-27-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: title title-1
+
+# Correlations
+
+.left-code[
+
+```r
+*library(Hmisc)
+
+s &lt;- spearman2(mpg ~ wt + vs + am + drat, 
+               data = mtcars)
+plot(s)
+```
+]
+.right-plot[
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-29-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: title title-1
+
+# Correlations
+
+.left-code[
+
+```r
+library(Hmisc)
+
+*s &lt;- spearman2(mpg ~ wt + vs + am + drat,
+               data = mtcars)
+plot(s)
+```
+]
+.right-plot[
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-31-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: title title-1
+# Correlations
+
+.left-code[
+
+```r
+library(Hmisc)
+
+s &lt;- spearman2(mpg ~ wt + vs + am + drat, 
+               data = mtcars)
+*plot(s)
+```
+]
+
+.right-plot[
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-33-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: title title-1
+
+# 🤹 Finding balance
+
+* **Prediction accuracy** versus **interpretability**
+
+* Linear models are easy to interpret, thin-plate splines
+are not
+--
+
+* Good fit versus **overfit** or **underfit**
+
+* How do we know when the fit is just right?
+
+--
+
+* **Parsimony** versus **black-box**
+
+* We often prefer a simpler model involving fewer variables over a black-box predictor involving them all
+
+---
+
+class: title title-1
+
+# <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
+
+
+.box-1[Open `code/04-select-variables.R`]
+
+.box-1[Use the `spearman2` function to look at the correlation between your selected variables and `VAL_RANK_EPISODE_1`]
+
+.box-1[Plot this. If you had to choose, which would you include?]
+
+<div class="countdown" id="timer_368dea6f" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: title title-1
+
+# Accuracy
+
+.box-1[Now that we've chosen our variables, let's see how accurate our model is]
+
+--
+
+.box-1[We can use two measures, R2 and Root-mean-squared-error]
+
+--
+
+.small[
+
+```r
+library(modelr)
+model &lt;- lm(mpg ~ wt + vs + am + drat, 
+               data = mtcars)
+rsquare(model, mtcars)
+rmse(model, mtcars)
+```
+]
+---
+
+class: title title-1
+
+# Accuracy
+
+.box-1[Now that we've chosen our variables, let's see how accurate our model is]
+
+
+.box-1[We can use two measures, R2 and Root-mean-squared-error]
+
+
+.small[
+
+```r
+*library(modelr)
+model &lt;- lm(mpg ~ wt + vs + am + drat, 
+               data = mtcars)
+rsquare(model, mtcars)
+rmse(model, mtcars)
+```
+]
+---
+
+
+class: title title-1
+
+# Accuracy
+
+.box-1[Now that we've chosen our variables, let's see how accurate our model is]
+
+
+.box-1[We can use two measures, R2 and Root-mean-squared-error]
+
+
+.small[
+
+```r
+library(modelr) 
+*model &lt;- lm(mpg ~ wt + vs + am + drat,
+*              data = mtcars)
+rsquare(model, mtcars)
+rmse(model, mtcars)
+```
+]
+---
+
+class: title title-1
+
+# Accuracy
+
+.box-1[Now that we've chosen our variables, let's see how accurate our model is]
+
+
+.box-1[We can use two measures, R2 and Root-mean-squared-error]
+
+
+.small[
+
+```r
+library(modelr) 
+model &lt;- lm(mpg ~ wt + vs + am + drat, 
+               data = mtcars)
+*rsquare(model, mtcars)
+rmse(model, mtcars)
+```
+]
+---
+
+class: title title-1
+
+# Accuracy
+
+.box-1[Now that we've chosen our variables, let's see how accurate our model is]
+
+
+.box-1[We can use two measures, R2 and Root-mean-squared-error]
+
+
+.small[
+
+```r
+library(modelr) 
+model &lt;- lm(mpg ~ wt + vs + am + drat, 
+               data = mtcars)
+rsquare(model, mtcars)
+```
+
+```
+## [1] 0.8092505
+```
+]
+---
+
+class: title title-1
+
+# Accuracy
+
+.box-1[Now that we've chosen our variables, let's see how accurate our model is]
+
+
+.box-1[We can use two measures, R2 and Root-mean-squared-error]
+
+
+.small[
+
+```r
+library(modelr) 
+model &lt;- lm(mpg ~ wt + vs + am + drat, 
+               data = mtcars)
+rsquare(model, mtcars)
+*rmse(model, mtcars)
+```
+]
+---
+
+class: title title-1
+
+# Accuracy
+
+.box-1[Now that we've chosen our variables, let's see how accurate our model is]
+
+
+.box-1[We can use two measures, R2 and Root-mean-squared-error]
+
+
+.small[
+
+```r
+library(modelr) 
+model &lt;- lm(mpg ~ wt + vs + am + drat, 
+               data = mtcars)
+rsquare(model, mtcars)
+```
+
+
+```r
+rmse(model, mtcars)
+```
+
+```
+## [1] 2.590807
+```
+]
+---
+class: title title-1
+
+# <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
+
+
+.box-1[Open `code/04-select-variables.R`]
+
+.box-1[Now that we've selected our variables, fit the linear model predicting `VAL_RANK_EPISODE_1`]
+
+.box-1[Using the `rmse` function calculation the root-mean-squared-error for this model]
+
+<div class="countdown" id="timer_136da638" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+---
+class: title title-1
+
+# <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
+
+
+.box-1[Open `reports/report.qmd`]
+
+.box-1[Now that we've selected our variables, update the model under the ##Linear Regression section to include these variables]
+
+<div class="countdown" id="timer_3a55ecd8" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: section-title section-title-1 center middle
+
+# Prediction
+
+---
+
+class: title title-1
+
+# Accuracy
+
+.box-1[We've fit a model to some training data]
+.box-1[We can measure **accuracy** as the average squared prediction error over that training data]
+
+--
+
+.box-1[
+What can go wrong here? 
+]
+
+--
+
+.box-1[This may be biased towards **overfit** models]
+
+---
+class: title title-1
+# Accuracy
+
+
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-42-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+.box-1[
+I have some `train` data, plotted above. What function might minimize the `\(RMSE_{\texttt{train}}\)`?
+]
+
+
+---
+class: title title-1
+
+# Accuracy 
+
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-43-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+.box-1[
+I have some `train` data, plotted above. What function might minimize the `\(RMSE_{\texttt{train}}\)`?
+]
+
+
+---
+class: title title-1
+
+# Accuracy 
+
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-44-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+.box-1[
+What is wrong with this?
+]
+
+--
+
+It's **overfit!**
+
+---
+class: title title-1
+
+# Accuracy
+
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-45-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+If we get a new sample, that overfit model is probably going to be terrible!
+
+---
+class: title title-1
+
+# Accuracy
+
+.box-1[We've fit a model to some training data]
+
+--
+
+.box-1[Instead of measuring **accuracy** as the RMSE over that `train` data, we can compute it using fresh `test` data]
+
+---
+class: title title-1
+
+# Cross validation 
+
+### 💡 Big idea
+
+.box-1[We have determined that it is sensible to use a _test_ set to calculate metrics like prediction error]
+
+---
+class: title title-1
+
+# Cross validation
+
+### 💡 Big idea
+
+.box-1[We have determined that it is sensible to use a _test_ set to calculate metrics like prediction error]
+
+.box-1[What if we don't have a seperate data set to test our model on?]
+
+--
+
+.box-1[🎉 We can use **resampling** methods to **estimate** the test-set prediction error]
+
+---
+class: title title-1
+
+# Training error versus test error
+
+.box-1[
+What is the difference? Which is typically larger?
+]
+
+--
+
+* The **training error** is calculated by using the same observations used to fit the statistical learning model
+--
+
+* The **test error** is calculated by using a statistical learning method to predict the response of **new** observations
+--
+
+* The **training error rate** typically _underestimates_ the true prediction error rate
+
+
+---
+class: title title-1
+
+# Estimating prediction error
+
+.box-1[Best case scenario: We have a large data set to test our model on]
+
+--
+
+.box-1[This is not always the case!]
+
+--
+
+💡 Let's instead find a way to estimate the test error by holding out a subset of the training observations from the model fitting process, and then applying the statistical learning method to those held out observations
+
+---
+class: title title-1
+
+# Approach #1: Validation set 
+
+.box-1[Randomly divide the available set up samples into two parts: a **training set** and a **validation set**]
+
+--
+
+.box-1[Fit the model on the **training set**, calculate the prediction error on the **validation set**]
+
+--
+
+.box-1[
+If we have a **quantitative predictor** what metric would we use to calculate this test error?
+]
+
+--
+
+.box-1[Often we use Root Mean Squared Error (RMSE)]
+
+---
+
+class: title title-1
+
+# Approach #1: Validation set 
+
+.box-1[Randomly divide the available set up samples into two parts: a **training set** and a **validation set**]
+
+.box-1[Fit the model on the **training set**, calculate the prediction error on the **validation set**]
+
+
+---
+class: title title-1
+
+# Approach #1: Validation set
+
+
+
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-47-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+--
+&lt;br&gt;
+.box-1.medium[
+Calculate the RMSE in just the test portions
+]
+
+
+
+
+---
+class: title title-1
+
+# Approach #1: Validation set
+
+Auto example: 
+* We have 392 observations
+* Trying to predict `mpg` from `horsepower`
+* We can split the data in half and use 196 to fit the model and 196 to test 
+
+
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-49-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+---
+class: title title-1
+
+# Approach #1: Validation set
+
+
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-50-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+.right[
+`\(\color{orange}{RMSE_{\texttt{test-split}}}\)`
+]
+
+--
+
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-51-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+
+.right[
+`\(\color{orange}{RMSE_{\texttt{test-split}}}\)`
+]
+
+--
+
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-52-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+.right[
+`\(\color{orange}{RMSE_{\texttt{test-split}}}\)`
+]
+
+--
+
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-53-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+.right[
+`\(\color{orange}{RMSE_{\texttt{test-split}}}\)`
+]
+
+
+---
+class: title title-1
+
+# Approach #1: Validation set
+
+Auto example: 
+* We have 392 observations
+* Trying to predict `mpg` from `horsepower`
+* We can split the data in half and use 196 to fit the model and 196 to test - **what if we did this many times?**
+
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-54-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+---
+class: title title-1
+
+# Approach #1: Validation set (Drawbacks)
+
+* the validation estimate of the test error can be highly variable, depending on which observations are included in the training set and which observations are included in the validation set
+--
+
+* In the validation approach, only a subset of the observations (those that are included in the training set rather than in the validation set) are used to fit the model
+
+--
+* Therefore, the validation set error may tend to **overestimate** the test error for the model fit on the entire data set
+
+---
+class: title title-1
+
+# Approach #2: K-fold cross validation
+
+💡 The idea is to do the following:
+
+*  Randomly divide the data into `\(K\)` equal-sized parts
+--
+
+*  Leave out part `\(k\)`, fit the model to the other `\(K - 1\)` parts (combined)
+--
+
+*  Obtain predictions for the left-out `\(k\)`th part
+--
+
+*  Do this for each part `\(k = 1, 2,\dots K\)`, and then combine the result
+
+---
+class: title title-1
+
+# K-fold cross validation
+
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-55-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+.right[
+`\(\small\color{orange}{RMSE_{\texttt{test-split-1}}}\)`
+]
+
+--
+
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-56-1.png" width="720" style="display: block; margin: auto;" /&gt;
+.right[
+`\(\small\color{orange}{RMSE_{\texttt{test-split-2}}}\)`
+]
+
+--
+
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-57-1.png" width="720" style="display: block; margin: auto;" /&gt;
+.right[
+`\(\small\color{orange}{RMSE_{\texttt{test-split-3}}}\)`
+]
+
+--
+
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-58-1.png" width="720" style="display: block; margin: auto;" /&gt;
+.right[
+`\(\small\color{orange}{RMSE_{\texttt{test-split-4}}}\)`
+]
+
+--
+
+.right[
+**Take the mean of the `\(k\)` MSE values**
+]
+
+---
+class: title title-1
+
+# Leave-one-out cross validation
+
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-59-1.png" width="720" style="display: block; margin: auto;" /&gt;
+--
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-60-1.png" width="720" style="display: block; margin: auto;" /&gt;
+--
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-61-1.png" width="720" style="display: block; margin: auto;" /&gt;
+--
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-62-1.png" width="720" style="display: block; margin: auto;" /&gt;
+--
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-63-1.png" width="720" style="display: block; margin: auto;" /&gt;
+--
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-64-1.png" width="720" style="display: block; margin: auto;" /&gt;
+--
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-65-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+--
+
+`$$\vdots$$`
+
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-66-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+&lt;img src="06-variable-selection_files/figure-html/unnamed-chunk-67-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: title title-1
+
+# Picking `\(K\)`
+
+* `\(K\)` can vary from 2 (splitting the data in half each time) to `\(n\)` (LOOCV)
+--
+
+* LOOCV is sometimes useful but usually the estimates from each fold are very correlated, so their average can have a **high variance**
+--
+
+* A better choice tends to be `\(K=5\)` or `\(K=10\)`
+
+---
+class: title title-1
+
+# Bias variance trade-off
+
+* Since each training set is only `\((K - 1)/K\)` as big as the original training set, the estimates of prediction error will typically be **biased** upward
+
+--
+* This bias is minimized when `\(K = n\)` (LOOCV), but this estimate has a **high variance**
+
+--
+* `\(K =5\)` or `\(K=10\)` provides a nice compromise for the bias-variance trade-off
+
+---
+class: title title-1
+
+# Approach #2: K-fold Cross Validation
+
+Auto example: 
+* We have 392 observations
+* Trying to predict `mpg` from `horsepower`
+
+
+&lt;img src="06-variable-selection_files/figure-html/fig1-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"navigation": {
+"scroll": false
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
