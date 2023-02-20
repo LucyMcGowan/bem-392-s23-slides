@@ -603,7 +603,7 @@ class: title title-1
 
 --
 
-.box-1[We can use a *generalization* or Spearman's rho rank correlation to quantify the magnitude of effects of our remaining covariates]
+.box-1[We can use a *generalization* of Spearman's rho rank correlation to quantify the magnitude of effects of our remaining covariates]
 
 ---
 
