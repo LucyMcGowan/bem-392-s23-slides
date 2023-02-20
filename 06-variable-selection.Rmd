@@ -412,7 +412,7 @@ class: title title-1
 
 # `r fontawesome::fa("laptop")` Application Exercise
 
-.box-1[Go bit.ly/bem-392-s22-rstudio and Save a Copy]
+.box-1[Go to posit.cloud and open the BEM 392 Workspace]
 
 .box-1[Open `code/04-select-variables.R`]
 
