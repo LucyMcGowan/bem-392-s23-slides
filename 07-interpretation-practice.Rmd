@@ -1,0 +1,100 @@
+---
+title: "Interpretation Practice"
+author: "Lucy D'Agostino McGowan"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    lib_dir: "libs"
+    css: ["default", "css/style.css"]
+    seal: false
+    anchor_sections: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      navigation:
+        scroll: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
+                      fig.retina = 3, fig.align = "center")
+```
+
+
+```{r xaringanExtra, echo=FALSE}
+xaringanExtra::use_xaringan_extra(c("tile_view"))
+```
+
+class: center middle main-title section-title-1
+
+# Interpretation Practice
+
+.class-info[
+
+**Session 8**
+
+.light[BEM 392: Math Business Capstone<br>
+Lucy D'Agostino McGowan
+]
+
+]
+
+---
+class: section-title-1 section-title middle
+
+# bit.ly/bem-392-slides-7
+
+---
+class: section-title-1 section-title middle
+
+## https://istats.shinyapps.io/ExploreCoverage/
+
+---
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+library(gtsummary)
+```
+
+
+```{r}
+lm(mpg ~ wt, data = mtcars) %>%
+  tbl_regression()
+```
+
+---
+
+
+
+```{r}
+lm(mpg ~ wt + disp, data = mtcars) %>%
+  tbl_regression()
+```
+
+---
+
+
+
+```{r}
+lm(mpg ~ as.factor(am), data = mtcars) %>%
+  tbl_regression()
+```
+---
+
+
+
+```{r}
+lm(mpg ~ as.factor(am), data = mtcars) %>%
+  tbl_regression(intercept = TRUE)
+```
+
+---
+
+
+```{r}
+lm(mpg ~ as.factor(am) + wt, data = mtcars) %>%
+  tbl_regression()
+```
