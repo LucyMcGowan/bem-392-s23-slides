@@ -142,8 +142,7 @@ simulate_return <- function(alpha) {
     return = (1 - alpha) * 1.01 + alpha * variable,
     alpha = alpha)
 }
-d <- rerun(10000, simulate_return(1)) |>
-  bind_rows()
+d <- map_df(1:10000, ~simulate_return(1))
 d |>
   mutate(color = ifelse(return < 0.8, "1", "2"),
          return = return * 100) -> d
@@ -172,8 +171,7 @@ class: title title-1
 
 .pull-left[
 ```{r risky, cache = TRUE, echo = FALSE, message = FALSE, warning = FALSE}
-d <- rerun(1000, map_df(seq(0, 1, by = 0.1), simulate_return)) |>
-  bind_rows()
+d <- map_df(1:1000, ~map_df(seq(0, 1, by = 0.1), simulate_return)) 
 d |>
   mutate(color = ifelse(return < 0.8, "1", "2")) -> d
 
@@ -571,6 +569,17 @@ rerun(5, simulate_return(0.5))
 ]
 ---
 
+class: title title-1
+
+# Risk: example
+
+.small[
+```{r}
+set.seed(1)
+map_df(1:5, ~simulate_return(0.5))
+```
+]
+---
 
 class: title title-1
 
@@ -578,8 +587,7 @@ class: title title-1
 
 ```{r}
 set.seed(1)
-rerun(5, simulate_return(0.5)) |>
-  bind_rows()
+map_df(1:5, ~simulate_return(0.5))
 ```
 
 ---
@@ -591,8 +599,7 @@ class: title title-1
 .small[
 ```{r}
 set.seed(1)
-rerun(5, simulate_return(c(0.1, 0.2, 0.3))) |>
-  bind_rows()
+map_df(1:5, ~simulate_return(c(0.1, 0.2, 0.3)))
 ```
 ]
 
@@ -631,9 +638,8 @@ class: title title-1
 .left-code[
 .small[
 ```{r plot-1, eval = FALSE}
-sims <- rerun(1000, 
-              simulate_return(c(0, 0.25, 0.5, 0.75, 1))) |>
-  bind_rows()
+sims <- map_df(1:1000, 
+              ~simulate_return(c(0, 0.25, 0.5, 0.75, 1)))
 
 ggplot(sims, aes(x = factor(alpha), y = return))
 ```
@@ -659,10 +665,8 @@ class: title title-1
 .left-code[
 .small[
 ```{r plot-2, eval = FALSE}
-sims <- rerun(1000, 
-              simulate_return(c(0, 0.25, 0.5, 0.75, 1))) |>
-  bind_rows()
-
+sims <- map_df(1:1000, 
+              ~simulate_return(c(0, 0.25, 0.5, 0.75, 1))) 
 ggplot(sims, aes(x = factor(alpha), y = return)) + 
   geom_boxplot() #<<
 ```
@@ -685,9 +689,8 @@ class: title title-1
 .left-code[
 .small[
 ```{r plot-3, eval = FALSE}
-sims <- rerun(1000, 
-              simulate_return(c(0, 0.25, 0.5, 0.75, 1))) |>
-  bind_rows()
+sims <- map_df(1:1000, 
+              ~simulate_return(c(0, 0.25, 0.5, 0.75, 1))) 
 
 ggplot(sims, aes(x = factor(alpha), y = return)) + 
   geom_boxplot() +
@@ -716,9 +719,8 @@ class: title title-1
 .left-code[
 .small[
 ```{r plot-4, eval = FALSE}
-sims <- rerun(1000, 
-              simulate_return(c(0, 0.25, 0.5, 0.75, 1))) |>
-  bind_rows()
+sims <- map_df(1:1000, 
+              ~simulate_return(c(0, 0.25, 0.5, 0.75, 1))) 
 
 ggplot(sims, aes(x = factor(alpha), y = return)) + 
   geom_boxplot(outlier.shape = NA) + #<<
@@ -744,9 +746,8 @@ class: title title-1
 .left-code[
 .small[
 ```{r plot-5, eval = FALSE}
-sims <- rerun(1000, 
-              simulate_return(c(0, 0.25, 0.5, 0.75, 1))) |>
-  bind_rows() |>
+sims <- map_df(1:1000, 
+              ~simulate_return(c(0, 0.25, 0.5, 0.75, 1))) |>
   mutate(lose_job = case_when( #<<
     return < 0.8 ~ "lost job", #<<
     TRUE ~ "still employed") #<<
@@ -775,9 +776,8 @@ class: title title-1
 .left-code[
 .small[
 ```{r plot-6, eval = FALSE}
-sims <- rerun(1000, 
-              simulate_return(c(0, 0.25, 0.5, 0.75, 1))) |>
-  bind_rows() |>
+sims <- map_df(1:1000, 
+              ~simulate_return(c(0, 0.25, 0.5, 0.75, 1))) |>
   mutate(lose_job = case_when( 
     return < 0.8 ~ "lost job", 
     TRUE ~ "still employed") 
