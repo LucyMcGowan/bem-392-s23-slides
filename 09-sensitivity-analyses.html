@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Simulating Risk and Sensitivity Analyses</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Lucy D’Agostino McGowan" />
+    <meta name="date" content="2023-03-28" />
+    <script src="libs/header-attrs-2.20/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <link href="libs/countdown-0.4.0/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown-0.4.0/countdown.js"></script>
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+
+
+class: center middle main-title section-title-1
+
+# Simulating Risk and Sensitivity Analyses
+
+.class-info[
+
+**Session 10**
+
+.light[BEM 392: Math Business Capstone&lt;br&gt;
+Lucy D'Agostino McGowan
+]
+
+]
+
+---
+class: section-title section-title-1 center middle
+
+# bit.ly/bem-392-slides-9
+
+---
+class: title title-1
+
+# Rental Scenario
+
+.box-1.medium[You are considering investing in a rental property]
+
+--
+
+.box-inv-1[U = # of units (Uniform between 20 and 30)]
+
+--
+
+.box-inv-1[R = Rent per unit ($450)]
+
+--
+
+.box-inv-1[E = Monthly expenses (Normally distributed, mean = $10,000, 
+sd = $1000)]
+
+--
+
+.box-inv-1[Profit = U x R - E]
+
+---
+
+
+class: title title-1
+
+# <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
+
+.box-1[Write a function to simulate the profit for a rental opportunity with the following parameters]
+
+.box-inv-1.small[U = # of units (Uniform between 20 and 30)]
+
+.box-inv-1.small[R = Rent per unit ($450)]
+
+.box-inv-1.small[E = Monthly expenses (Normally distributed, mean = $10,000, 
+sd = $1000)]
+
+.box-1[Run this simulation 1000 times, plot a histogram of the output]
+
+.box-1[What is the chance of being profitable?]
+
+<div class="countdown" id="timer_9f16474d" data-update-every="1" tabindex="0" style="right:0;bottom:0;font-size:1em;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">08</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+
+---
+
+class: title title-1
+
+# Rental Scenario
+
+.box-1.medium[You are considering investing in a rental property]
+
+--
+
+.box-1[U = # of units (Uniform between 20 and 30)]
+
+--
+
+.box-inv-1[R = Rent per unit ($450)]
+
+--
+
+.box-inv-1[E = Monthly expenses (Normally distributed, mean = $10,000, 
+sd = $1000)]
+
+--
+
+.box-inv-1[Profit = U x R - E]
+
+---
+
+class: title title-1
+# Rental example
+
+
+```r
+simulate_profit &lt;- function(u) { 
+  u &lt;- # have this be input by the user
+  r &lt;- # rent per unit
+  e &lt;- # generate a random normal variable with a
+       # mean of 10000 and sd of 1000
+  data.frame(profit = u * r - e,
+             u = u)
+}
+```
+
+---
+class: title title-1
+# Rental example
+
+
+```r
+*simulate_profit &lt;- function(u) {
+* u &lt;- # have this be input by the user
+  r &lt;- # rent per unit
+  e &lt;- # generate a random normal variable with a
+       # mean of 10000 and sd of 1000
+  data.frame(profit = u * r - e,
+*            u = u)
+}
+```
+
+---
+
+class: title title-1
+# Rental example
+
+
+```r
+simulate_profit &lt;- function(u) { 
+  r &lt;- # rent per unit
+  e &lt;- # generate a random normal variable with a
+       # mean of 10000 and sd of 1000
+  data.frame(profit = u * r - e,
+             u = u)
+}
+```
+
+--
+.box-1[What is the rent per unit?]
+---
+
+class: title title-1
+# Rental example
+
+
+```r
+simulate_profit &lt;- function(u) { 
+* r &lt;- 450
+  e &lt;- # generate a random normal variable with a
+       # mean of 10000 and sd of 1000
+  data.frame(profit = u * r - e,
+             u = u)
+}
+```
+
+--
+
+.box-1[How do we generate a random normal variable with a mean of 15000 and a sd of 1000?]
+
+---
+
+class: title title-1
+
+# Rental example
+
+
+```r
+simulate_profit &lt;- function(u) { 
+  r &lt;- 450
+  e &lt;- rnorm(1, mean = 10000, sd = 1000)
+  data.frame(profit = u * r - e,
+             u = u)
+}
+```
+
+
+---
+
+class: title title-1
+
+# Rental example
+
+
+```r
+seq(20, 30, by = 1)
+```
+
+```
+##  [1] 20 21 22 23 24 25 26 27 28 29 30
+```
+
+```r
+20:30
+```
+
+```
+##  [1] 20 21 22 23 24 25 26 27 28 29 30
+```
+
+---
+
+class: title title-1
+
+# Rental example
+
+
+```r
+library(tidyverse)
+sims &lt;- map_df(1:1000, ~simulate_profit(20:30))
+```
+
+---
+
+class: title title-1
+
+# <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
+
+.box-1[Update your previous function to allow a parameter for `u` instead of generating it from a uniform distribution]
+
+.box-1[Update your previous function to output a data frame with two columns: `profit` and `u`]
+
+.box-1[Run your function 1000 times, varying `u` from 20 to 30 by 1]
+
+.box-1[Create a boxplot to view how `u` impacts the risk]
+
+<div class="countdown" id="timer_c5ff70dd" data-update-every="1" tabindex="0" style="right:0;bottom:0;font-size:1em;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+
+class: title title-1
+
+# Rental example
+
+.left-code[
+
+```r
+library(ggridges)
+ggplot(sims, aes(x = profit, y = factor(u))) +
+  geom_density_ridges() + 
+  geom_vline(xintercept = 0, lty = 2) + 
+  labs(y = "Number of Units rented")
+```
+
+]
+
+.right-plot[
+&lt;img src="09-sensitivity-analyses_files/figure-html/unnamed-chunk-9-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+class: title title-1
+
+# <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
+
+.box-1[Run `install.packages("ggridges")` once in the console to install the ggridges package]
+
+.box-1[Create a ridgeline plot using the example code on the previous slide of your sensitivity analysis]
+
+<div class="countdown" id="timer_a36aa652" data-update-every="1" tabindex="0" style="right:0;bottom:0;font-size:1em;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">06</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+
+class: title title-1
+
+# Calculate the risk 
+
+.box-1[
+`\(N\)` = total number of simulations
+]
+
+--
+
+.box-inv-1.medium[
+Probability of Loss = `\(\frac{\sum_{i = 1}^{N}I(\textrm{Return} &lt; \textrm{break even point})}{N}\)`
+]
+
+---
+
+class: title title-1
+
+# Probability of Loss
+
+
+```r
+set.seed(1)
+sims &lt;- map_df(1:1000, ~simulate_profit(u = 25)) 
+sims |&gt;
+  summarise(probability_of_loss = ## what?)
+```
+
+---
+
+class: title title-1
+
+# Probability of Loss
+
+
+```r
+set.seed(1)
+sims &lt;- map_df(1:1000, ~simulate_profit(u = 25)) 
+sims |&gt;
+  summarise(probability_of_loss = sum(profit &lt; 0) / ## what?)
+```
+
+---
+
+class: title title-1
+
+# Probability of Loss
+
+
+```r
+set.seed(1)
+sims &lt;- map_df(1:1000, ~simulate_profit(u = 25))
+sims |&gt;
+  summarise(probability_of_loss = sum(profit &lt; 0) / 1000)
+```
+
+```
+##   probability_of_loss
+## 1               0.108
+```
+
+---
+
+
+class: title title-1
+
+# <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
+
+.box-1[Run your rental simulation with `u = 22` 1000 times]
+
+.box-1[Calculate the probability of loss]
+
+<div class="countdown" id="timer_76e78f92" data-update-every="1" tabindex="0" style="right:0;bottom:0;font-size:1em;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+
+class: title title-1
+
+# Calculate the risk 
+
+.box-inv-1.medium[
+Probability of Profit = `\(\frac{\sum_{i = 1}^{N}I(\textrm{Return} &gt; \textrm{break even point})}{N}\)`
+]
+
+---
+
+class: title title-1
+
+# Probability of Profit
+
+
+```r
+sims |&gt;
+  summarise(
+    probability_of_loss = sum(profit &lt; 0) / 1000,
+    probability_of_profit = ## what?)
+```
+
+---
+
+class: title title-1
+
+# Probability of Profit
+
+
+```r
+sims |&gt;
+  summarise(
+    probability_of_loss = sum(profit &lt; 0) / 1000,
+    probability_of_profit = sum(profit &gt; 0) / 1000)
+```
+
+```
+##   probability_of_loss probability_of_profit
+## 1               0.108                 0.892
+```
+
+---
+
+class: title title-1
+
+# Calculate the risk 
+
+.box-inv-1.medium[
+Probability of Profit = 1 - Probability of Loss
+]
+
+---
+
+class: title title-1
+
+# Probability of Profit
+
+
+```r
+sims |&gt;
+  summarise(
+    probability_of_loss = sum(profit &lt; 0) / 1000,
+    probability_of_profit = 1 - probability_of_loss)
+```
+
+```
+##   probability_of_loss probability_of_profit
+## 1               0.108                 0.892
+```
+---
+
+class: title title-1
+
+# <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
+
+.box-1[Using your rental simulation from the previous exercise, calculate the probability of profit]
+
+<div class="countdown" id="timer_139c3c29" data-update-every="1" tabindex="0" style="right:0;bottom:0;font-size:1em;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: title title-1
+
+# Calculate the risk 
+
+.box-inv-1.medium[
+Expected Loss = `\(\frac{\sum_{i = 1}^{N}\textrm{Return}\times I(\textrm{Return} &lt; \textrm{break even point})}{\sum_{i = 1}^NI(\textrm{Return} &lt; \textrm{break even point})}\)`
+]
+
+---
+
+class: title title-1
+
+# Expected Loss
+
+
+```r
+sims |&gt;
+  summarise(
+    expected_loss = sum(profit[profit &lt; 0]) / sum(profit &lt; 0)
+      )
+```
+
+```
+##   expected_loss
+## 1     -522.0173
+```
+
+---
+
+
+class: title title-1
+
+# <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
+
+.box-1[Using your rental simulation from the previous exercise, calculate the expected loss]
+
+<div class="countdown" id="timer_55ed53c7" data-update-every="1" tabindex="0" style="right:0;bottom:0;font-size:1em;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+
+class: title title-1
+
+# Calculate the risk 
+
+.box-inv-1.medium[
+Value at Risk `\((\alpha)\)`= `\(F^{-1}(1-\alpha)\)`
+]
+
+--
+
+.box-1[
+You have an `\(\alpha\times 100\)`% chance of losing  this VaR `\((\alpha)\)` **or more**
+]
+
+--
+
+.box-1[
+Find the `\(\alpha\)` percentile of your simulated return
+]
+
+---
+
+class: title title-1
+
+# Value at Risk
+
+
+```r
+sims |&gt;
+  summarise(VaR_0.01 = quantile(profit, 0.01))
+```
+
+```
+##    VaR_0.01
+## 1 -1058.112
+```
+
+--
+
+.box-1[You have a 1% chance of losing $1,058.12 **or more**]
+
+---
+
+class: title title-1
+
+# Value at Risk
+
+
+```r
+sims |&gt;
+  summarise(VaR_0.05 = quantile(profit, 0.05))
+```
+
+```
+##    VaR_0.05
+## 1 -493.9832
+```
+
+--
+
+.box-1[You have a 5% chance of losing $493.98 **or more**]
+---
+
+
+class: title title-1
+
+# <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
+
+.box-1[
+Using your rental simulation from the previous exercise, calculate the value at risk for `\(\alpha = 0.1\)` and `\(\alpha = 0.01\)`
+]
+
+<div class="countdown" id="timer_d8f80c63" data-update-every="1" tabindex="0" style="right:0;bottom:0;font-size:1em;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">04</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+
+class: title title-1
+
+# Calculate the risk 
+
+.box-inv-1.medium[
+Conditional Value at Risk `\((\alpha)\)` = `\(\frac{\sum_{i = 1}^{N}\textrm{Return}\times I(\textrm{Return} &lt; F^{-1}(1-\alpha))}{\sum_{i = 1}^NI(\textrm{Return} &lt; F^{-1}(1-\alpha))}\)`
+]
+
+
+---
+
+class: title title-1
+
+# Conditional Value at Risk
+
+
+```r
+sims |&gt;
+  summarise(
+    cVaR_0.05 = sum(profit[profit &lt; quantile(profit, 0.05)]) / 
+      sum(profit &lt; quantile(profit, 0.05)))
+```
+
+```
+##   cVaR_0.05
+## 1 -853.6665
+```
+
+--
+
+.box-1[Measure of the *tail risk*]
+
+--
+
+.box-1[A weighted average of "extreme" losses (in this case with 5% chance of occurring or less)]
+
+---
+
+class: title title-1
+
+# Conditional Value at Risk
+
+
+```r
+sims |&gt;
+  summarise(
+    cVaR_0.05 = sum(profit[profit &lt; quantile(profit, 0.05)]) / 
+      sum(profit &lt; quantile(profit, 0.05)))
+```
+
+```
+##   cVaR_0.05
+## 1 -853.6665
+```
+
+
+.box-1[Measure of the *tail risk*]
+
+
+.box-1[The expected loss if the "worst case" 5% threshold is crossed]
+
+---
+
+
+class: title title-1
+
+# <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
+
+.box-1[
+Using your rental simulation from the previous exercise, calculate the conditional value at risk for `\(\alpha = 0.1\)` and `\(\alpha = 0.01\)`
+]
+
+<div class="countdown" id="timer_658fc11b" data-update-every="1" tabindex="0" style="right:0;bottom:0;font-size:1em;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">04</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+
+class: title title-1
+
+# Sensitivity anlaysis
+
+
+```r
+set.seed(1)
+sims &lt;- map_df(1:1000, ~simulate_profit(u = 20:30)) 
+sims |&gt;
+  group_by(u) |&gt;
+  summarise(probability_of_loss = sum(profit &lt; 0) / 1000)
+```
+
+---
+
+class: title title-1
+
+# Sensitivity anlaysis
+
+
+```r
+set.seed(1)
+*sims &lt;- map_df(1:1000, ~simulate_profit(u = 20:30))
+  
+sims |&gt;
+  group_by(u) |&gt;
+  summarise(probability_of_loss = sum(profit &lt; 0) / 1000)
+```
+
+---
+
+class: title title-1
+
+# Sensitivity anlaysis
+
+
+```r
+set.seed(1)
+sims &lt;- map_df(1:1000, ~simulate_profit(u = 20:30)) 
+sims |&gt;
+* group_by(u) |&gt;
+  summarise(probability_of_loss = sum(profit &lt; 0) / 1000)
+```
+
+---
+
+class: title title-1
+
+# Sensitivity anlaysis
+
+.pull-left[
+.small[
+
+```r
+set.seed(1)
+sims &lt;- map_df(
+  1:1000, 
+  ~simulate_profit(u = 20:30)
+  ) 
+sims |&gt;
+  group_by(u) |&gt;
+  summarise(
+    probability_of_loss = 
+      sum(profit &lt; 0) / 1000
+    )
+```
+]
+]
+
+.pull-right[
+.small[
+
+```
+## # A tibble: 11 × 2
+##        u probability_of_loss
+##    &lt;int&gt;               &lt;dbl&gt;
+##  1    20               0.832
+##  2    21               0.709
+##  3    22               0.53 
+##  4    23               0.37 
+##  5    24               0.214
+##  6    25               0.108
+##  7    26               0.053
+##  8    27               0.02 
+##  9    28               0.004
+## 10    29               0.002
+## 11    30               0.001
+```
+]
+]
+---
+
+class: title title-1
+
+# <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
+
+.box-1[
+Run a new simulation looking at `u` ranging from `25` to `35`
+]
+
+.box-1[Calculate the following for each value of `u`]
+
+.box-inv-1[Probability of loss]
+
+.box-inv-1[Expected loss]
+
+.box-inv-1[
+Conditional Value at Risk `\((\alpha = 0.01)\)`
+]
+
+
+
+<div class="countdown" id="timer_9b4a7366" data-update-every="1" tabindex="0" style="right:0;bottom:0;font-size:1em;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+
+class: title title-1
+
+# Sensitivity analysis for regression assumptions
+
+.box-1[Missing data?]
+
+.box-1[Non-linear terms?]
+
+.box-1[Outliers?]
+
+---
+
+class: title title-1
+
+# Missing data
+
+.pull-left[
+.box-1.medium[Best case]
+
+.box-inv-1[Multiple imputation]
+]
+
+--
+
+.pull-right[
+.box-1.medium[Sensitivity analysis]
+
+.box-inv-1[Analysis 1: Remove all missing values]
+
+.box-inv-1[Analysis 2: Replace all missing values with the mean]
+
+.box-inv-1[Analysis 3: Replace all missing values with an extreme value]
+
+]
+---
+
+class: title title-1
+
+# Missing data
+
+.box-1[If all sensitivity analyses reveal similar results, your analysis is **robust**]
+
+---
+
+class: title title-1
+
+# Non-linear data
+
+.pull-left[
+.box-1.medium[Best case]
+
+.box-inv-1[Know the true functional form of all variables (and model with that)]
+]
+
+--
+
+.pull-right[
+.box-1.medium[Sensitivity analysis]
+
+.box-inv-1[Analysis 1: Fit the variable linearly]
+
+.box-inv-1[Analysis 2: Fit the variable with polynomial terms]
+
+.box-inv-1[Analysis 3: Fit the variable with a natural spline]
+
+]
+
+---
+
+class: title title-1
+
+# Sensitivity analysis for nonlinearity
+
+.pull-left-3[
+### Analysis 1: 
+.small[
+
+```r
+p &lt;- lm(
+  mpg ~ cyl + disp + 
+*   wt,
+  data = mtcars) |&gt; 
+  predict()
+```
+]
+]
+
+.pull-middle-3[
+### Analysis 2: 
+.small[
+
+```r
+p_2 &lt;- lm(
+  mpg ~ cyl + disp + 
+*   poly(wt, 3),
+  data = mtcars) |&gt; 
+  predict()
+```
+]
+]
+
+.pull-right-3[
+### Analysis 3: 
+.small[
+
+```r
+p_3 &lt;- lm(
+  mpg ~ cyl + disp + 
+*   splines::ns(wt, 3),
+  data = mtcars) |&gt; 
+  predict()
+```
+]
+]
+
+---
+
+class: title title-1
+
+# Sensitivity analysis for nonlinearity
+
+.left-code[
+
+```r
+data.frame(p = c(p, p_2, p_3),
+           analysis = c("linear", "polynomial", "spline")) |&gt;
+  ggplot(aes(y = p, x = analysis, group = analysis)) +
+  geom_boxplot() + 
+  labs(y = "predicted miles per gallon")
+```
+]
+
+.right-plot[
+&lt;img src="09-sensitivity-analyses_files/figure-html/unnamed-chunk-30-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+class: title title-1
+
+# Sensitivity analysis for nonlinearity
+
+.left-code[
+
+```r
+data.frame(p, p_2, p_3) |&gt;
+  mutate(diff = p - p_2) |&gt;
+  ggplot(aes(y = diff, x = 1:32)) +
+  geom_point() + 
+  geom_hline(yintercept = 0, lty = 2) +
+  labs(y = "difference in predicted miles per gallon (linear vs polynomial)",
+       x = "obs")
+```
+]
+
+.right-plot[
+&lt;img src="09-sensitivity-analyses_files/figure-html/unnamed-chunk-32-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+
+class: title title-1
+
+# Sensitivity analysis for nonlinearity
+
+.left-code[
+
+```r
+data.frame(p, p_2, p_3) |&gt;
+  mutate(diff = p - p_3) |&gt;
+  ggplot(aes(y = diff, x = 1:32)) +
+  geom_point() + 
+  geom_hline(yintercept = 0, lty = 2) +
+  labs(y = "difference in predicted miles per gallon (linear vs spline)",
+       x = "obs")
+```
+]
+
+.right-plot[
+&lt;img src="09-sensitivity-analyses_files/figure-html/unnamed-chunk-34-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+class: title title-1
+
+# Outlier
+
+.pull-left[
+.box-1.medium[Best case]
+
+.box-inv-1[Understand the mechanism for the outlier (data error? remove, true value? keep)]
+]
+
+--
+
+.pull-right[
+.box-1.medium[Sensitivity analysis]
+
+.box-inv-1[Analysis 1: Fit the model with the outlier]
+
+.box-inv-1[Analysis 2: Fit the model without the outlier]
+
+]
+
+---
+
+class: title title-1
+
+# <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"/></svg> Application Exercise
+
+.box-1[We are interested in the relationship between `height` and `mass` after controlling for species in the `starwars` data set. First, create a scatter plot of `height` by `mass`. Do you notice any outliers?]
+
+.box-1[
+Using the `starwars` data set, fit a linear model predicting `height` using `mass` and `species`. What is the beta coefficient for `mass`?]
+
+.box-1[Filter out any outliers. Refit your model predicting `height` using `mass` and `species`. What is the beta coefficient for `mass`? ]
+
+
+<div class="countdown" id="timer_11931e35" data-update-every="1" tabindex="0" style="right:0;bottom:0;font-size:1em;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"navigation": {
+"scroll": false
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
