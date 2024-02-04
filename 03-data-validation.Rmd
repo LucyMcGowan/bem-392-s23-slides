@@ -69,6 +69,45 @@ class: title title-1
 .box-1.medium[Data validation tools]
 ---
 
+class: title title-1
+
+# `r fontawesome::fa("laptop")` Application Exercise
+
+.box-1[
+Go to [bit.ly/bem-392-rstudio](https://bit.ly/bem-392-rstudio)
+]
+
+--
+
+.box-1[log in / create an account using your Wake gmail]
+
+---
+class: title title-1
+
+# `r fontawesome::fa("laptop")` Application Exercise
+
+<img src = "img/save-copy.png" height = 500></img>
+
+---
+
+class: title title-1
+
+# `r fontawesome::fa("laptop")` Application Exercise
+
+.box-1[[1] Explore the README.md]
+
+.box-inv-1[What data is in this project?]
+
+.box-inv-1[Where did the data come from?]
+
+
+`r countdown::countdown(3)`
+.footer[
+Go to [bit.ly/bem-392-rstudio](https://bit.ly/bem-392-rstudio)
+]
+
+---
+
 class: center middle section-title section-title-1
 
 # Column names are a way to align producers and consumers
@@ -214,9 +253,6 @@ class: title title-1
 .box-1[
 Go to [bit.ly/bem-392-rstudio](https://bit.ly/bem-392-rstudio)
 ]
-
-
-.box-inv-1[Save a **NEW** permanent copy (don't open your old version)]
 
 --
 
